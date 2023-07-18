@@ -1,0 +1,22 @@
+{
+  "name": "fbstocks",
+  "version": "1.0.0",
+  "description": "favorite stocks",
+  "main": "Exporter.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kenchanbaken/fbstocks.git"
+  },
+  "keywords": [
+    "stocks"
+  ],
+  "author": "kenchanbaken",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kenchanbaken/fbstocks/issues"
+  },
+  "homepage": "https://github.com/kenchanbaken/fbstocks#readme"
+}

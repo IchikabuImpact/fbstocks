@@ -1,0 +1,58 @@
+<html>
+<body>
+    <h1>Stock Price Heatmap</h1>
+    <div id="stockData"></div>
+<style>
+    #stockData {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    .stock {
+        box-sizing: border-box;
+        flex: 1 0 250px; /* The stock will try to take up 200px if there's space, but it can shrink if there isn't */
+        max-width: 250px; /* But it can't grow over 200px */
+        height: 250px;
+        border: 1px solid black;
+        margin: 1px;
+        padding: 1px;
+        overflow: auto;
+    }
+    .stock-name {
+        font-weight: smaller;
+    }
+    .stock-price-change {
+        font-size: smaller;
+    }
+</style>
+<script>
+async function fetchAndDisplayStockData(ticker) {
+    const response = await fetch(`../${ticker}.json`);
+    const data = await response.json();
+    const dataDiv = document.getElementById('stockData');
+    var currentPrice = parseFloat(data.currentPrice.toString().replace(/,/g,'').replace(/¥/g,'')); 
+    var previousClose = parseFloat(data.previousClose.toString().replace(/,/g,'').replace(/¥/g,''));
+    const priceChange = currentPrice - previousClose;
+    const priceChangePercentage = (priceChange / previousClose) * 100;
+    const absolutePercentage = Math.abs(priceChangePercentage);
+    const colorIntensity = Math.min(Math.round(absolutePercentage), 100);
+    let color, textColor;
+    if (priceChangePercentage === 0) {
+        color = 'rgba(255, 255, 255, 1)'; // white background
+        textColor = 'rgba(0, 0, 0, 1)'; // black text
+    } else {
+        const alpha = colorIntensity / 100;
+        color = (priceChangePercentage > 0) ? `rgba(0, 255, 0, ${alpha})` : `rgba(255, 0, 0, ${alpha})`;
+        textColor = 'rgba(0, 0, 0, 1)'; // black text
+    }
+    dataDiv.innerHTML += `<div class="stock" style="background-color: ${color}; color: ${textColor};">
+                            <p class="stock-name">${data.ticker}: ${data.companyName}</p>
+                            <p class="stock-price-change">${data.currentPrice}</p>
+                            <p class="stock-price-change-percentage">${priceChangePercentage.toFixed(2)}%</p>
+                          </div>`;
+}
+const tickers = [8714,9433,9101,7164,7278,9783,4765,7011,8278,1802,2157,7011,9980,8285,9728,5343,8616];
+tickers.forEach(fetchAndDisplayStockData);
+</script>
+</body>
+</html>
