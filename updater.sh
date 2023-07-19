@@ -1,3 +1,5 @@
 #!/bin/bash -l
-/usr/bin/node Exporter.js
+cd
+cd /var/www/fbstocks/
+/usr/bin/node ./Exporter.js
 

@@ -2,17 +2,17 @@
 favorite stocks
 
 ## HowToStart
-node.jsをインストールします。
+###node.jsをインストールします。
 [someuser@www somwhere]$ curl -sL https://rpm.nodesource.com/setup_lts.x | sudo bash -
 [someuser@www somwhere]$ sudo yum install -y nodejs
 
-ソースを入手します
+### ソースを入手します
 [someuser@www somwhere]$ git clone https://github.com/kenchanbaken/fbstocks.git
 [someuser@www somwhere]$ cd fbstocks
 [someuser@www fbstocks]$ npm install
 
-apacheなどで適宜設定します。
-fbstocks/publicをDocumentRootとして想定しております。
+### apacheなどで適宜設定します。
+### fbstocks/publicをDocumentRootとして想定しております。
 
 ## StockDataScraper.js
 ティッカーシンボルを引数に渡すとjson形式で
