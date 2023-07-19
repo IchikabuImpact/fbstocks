@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/kenchanbaken/fbstocks/issues"
   },
-  "homepage": "https://github.com/kenchanbaken/fbstocks#readme"
+  "homepage": "https://github.com/kenchanbaken/fbstocks#readme",
+  "dependencies": {
+    "selenium-webdriver": "^4.10.0"
+  }
 }

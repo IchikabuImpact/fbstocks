@@ -2,8 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
 
-// Static array of tickers
-const tickers = [8714,9433,9101,7164,7278,9783,4765,7011,8278,1802,2157,7011,9980,8285,9728,5343,8616];
+// Path to the CSV file
+const CSV_PATH = path.join(__dirname, 'public', 'tickers.csv');
 
 // Timeout between requests (in milliseconds)
 const TIMEOUT = 500;
@@ -39,8 +39,24 @@ function delay(time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
+// Function to load tickers from a CSV file
+function loadTickersFromCSV(filePath) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(filePath, 'utf8', (err, data) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      // Split the file by new lines and remove any empty lines
+      const tickers = data.split('\n').filter(ticker => ticker.trim() !== '');
+      resolve(tickers);
+    });
+  });
+}
+
 // Async function to call the scrapeAndSave function for each ticker with a delay
 async function run() {
+  const tickers = await loadTickersFromCSV(CSV_PATH);
   for (let ticker of tickers) {
     await scrapeAndSave(ticker);
     await delay(TIMEOUT);
@@ -48,5 +64,3 @@ async function run() {
 }
 
 run();
-
-
