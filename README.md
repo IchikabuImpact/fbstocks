@@ -27,4 +27,4 @@ favorite stocks
 
 ## public/heatmap.html
 
-public/tickers.csvを読み込んでヒートマップを表示します。
+### public/tickers.csvを読み込んでヒートマップを表示します。
