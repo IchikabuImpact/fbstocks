@@ -18,9 +18,10 @@ favorite stocks
 ### fbstocks/publicをDocumentRootとして想定しております。
 
 ## StockDataScraper.js
-### ティッカーシンボルを引数に渡すとjson形式で結果を返します
+### ティッカーシンボルを引数に渡すとjson形式で株価、昨日終値をjsonで返してくれます
 
- [someuser@www fbstocks]$ node StockDataScraper.js 1332
+ [rocky@www stub]$ node StockDataScraper.js 1332
+{ ticker: '1332', companyName: 'ニッスイ', currentPrice: '\669.20' }
 
 ## Exporter.js
 ### public/tickers.csvにある証券コードを読み込んで結果をpublic/証券コード.jsonに保存します。### crontabなどで頻繁に実行しちゃうと負荷がかかるので要注意

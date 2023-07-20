@@ -1,6 +1,6 @@
 /*
 usage
-[rocky@www stub]$ node StockDataScraper.js 1332
+[user@www somewhere]$ node StockDataScraper.js 1332
 { ticker: '1332', companyName: 'ニッスイ', currentPrice: '¥669.20' }
 */
 const { Builder, By, Key, until } = require('selenium-webdriver');
