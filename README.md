@@ -25,7 +25,7 @@ favorite stocks
 {"ticker":"1332","companyName":"ニッスイ","currentPrice":"\668.00","previousClose":"\677.70"}
 
 ## Exporter.js
-### public/tickers.csvにある証券コードを読み込んで結果をpublic/証券コード.jsonに保存します。### crontabなどで頻繁に実行しちゃうと負荷がかかるので要注意
+### public/tickers.csvから証券コードを読み込んで結果をpublic/証券コード.jsonに保存します。### crontabなどで頻繁に実行しちゃうと負荷がかかるので要注意
 
 ## public/heatmap.html
 
