@@ -21,6 +21,7 @@ favorite stocks
 ### ティッカーシンボルを引数に渡すとティッカーシンボル、会社名、株価、昨日終値をjsonで返してくれます
 
  [rocky@www stub]$ node StockDataScraper.js 1332
+
 {"ticker":"1332","companyName":"ニッスイ","currentPrice":"\668.00","previousClose":"\677.70"}
 
 ## Exporter.js
