@@ -1,0 +1,153 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 1rem;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav {
+    display: flex;
+    gap: 1rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+main {
+    padding: 1rem;
+}
+
+footer {
+    background-color: #f3f3f3;
+    padding: 1rem;
+    text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+    nav {
+        flex-direction: column;
+    }
+}
+
+#stockData {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.stock {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    /* The stock will try to take up 200px if there's space, but it can shrink if there isn't */
+    max-width: 250px;
+    /* But it can't grow over 200px */
+    height: 250px;
+    border: 1px solid black;
+    margin: 1px;
+    padding: 1px;
+    overflow: auto;
+}
+
+.stock-name {
+    font-weight: smaller;
+}
+
+.stock-price-change {
+    font-size: smaller;
+}
+
+nav {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 1px solid white;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 120px;
+    height: 120px;
+}
+
+.footer-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 1rem;
+    background-color: #333;
+    color: white;
+}
+
+.footer-column {
+    flex: 1;
+    padding: 1rem;
+}
+
+.footer-column h3 {
+    margin: 0 0 1rem;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-column a:hover {
+    text-decoration: underline;
+}
+
+.footer-credit {
+    text-align: center;
+    margin-top: 1rem;
+}
+.google-signin-container {
+    text-align: center;
+    margin: 20px;
+}
+
+#google-signin-btn {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+#google-signin-btn img {
+    width: 200px; 
+}
+font{
+    
+}

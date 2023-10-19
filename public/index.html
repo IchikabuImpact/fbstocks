@@ -1,66 +1,37 @@
 <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/styles.css">
+        <title>FB Stocks</title>
+    </head>
 <body>
-    <h1>Stock Price Heatmap</h1>
+    <header>
+        <div class="logo-container">
+            <a href="/">
+                <img src="/images/fbstocks120-120.png" alt="FB Stocks Logo" class="logo">
+            </a>
+        </div>
+	<div class="google-signin-container">
+          <a href="/auth/google" id="google-signin-btn">
+            <img src="/images/sign-in-with-google.png" alt="Sign in with Google">
+         </a>
+        </div>
+    </header>
+<main>
     <div id="stockData"></div>
-<style>
-    #stockData {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-    }
-    .stock {
-        box-sizing: border-box;
-        flex: 1 0 250px; /* The stock will try to take up 200px if there's space, but it can shrink if there isn't */
-        max-width: 250px; /* But it can't grow over 200px */
-        height: 250px;
-        border: 1px solid black;
-        margin: 1px;
-        padding: 1px;
-        overflow: auto;
-    }
-    .stock-name {
-        font-weight: smaller;
-    }
-    .stock-price-change {
-        font-size: smaller;
-    }
-</style>
-<script>
-    async function fetchCSV() {
-        const response = await fetch('tickers.csv');
-        const data = await response.text();
-        return data.split('\n').filter(ticker => ticker.length > 0);
-    }
-    async function fetchAndDisplayStockData(ticker) {
-        const response = await fetch(`${ticker}.json`);
-        const data = await response.json();
-        const dataDiv = document.getElementById('stockData');
-        var currentPrice = parseFloat(data.currentPrice.toString().replace(/,/g,'').replace(/¥/g,'')); 
-        var previousClose = parseFloat(data.previousClose.toString().replace(/,/g,'').replace(/¥/g,''));
-        const priceChange = currentPrice - previousClose;
-        const priceChangePercentage = (priceChange / previousClose) * 100;
-        const absolutePercentage = Math.abs(priceChangePercentage);
-        const colorIntensity = Math.min(Math.round(absolutePercentage), 100);
-        let color, textColor;
-        if (priceChangePercentage === 0) {
-            color = 'rgba(255, 255, 255, 1)'; // white background
-            textColor = 'rgba(0, 0, 0, 1)'; // black text
-        } else {
-            //const alpha = colorIntensity / 100;
-            const alpha = Math.min((colorIntensity / 50), 1); 
-            color = (priceChangePercentage > 0) ? `rgba(0, 255, 0, ${alpha})` : `rgba(255, 0, 0, ${alpha})`;
-            textColor = 'rgba(0, 0, 0, 1)'; // black text
-        }
-        dataDiv.innerHTML += `<div class="stock" style="background-color: ${color}; color: ${textColor};">
-                                <p class="stock-name">${data.ticker}: ${data.companyName}</p>
-                                <p class="stock-price-change">${data.currentPrice}</p>
-                                <p class="stock-price-change-percentage">${priceChangePercentage.toFixed(2)}%</p>
-                              </div>`;
-    }
-    
-    fetchCSV().then(tickers => {
-        tickers.forEach(fetchAndDisplayStockData);
-    });
-    </script>
+</main>
+<footer>
+    <div class="footer-wrapper">
+        <div class="footer-column">
+       <div class="footer-column"><h3>Term Of Use</h3><ul><li class="nav-item"><a class="nav-link" data-ajax="false" href="/term-of-use.html">Term Of Use</a></li></ul></div>
+       <div class="footer-column"><h3>Privacy Policy</h3><ul><li class="nav-item"><a class="nav-link" data-ajax="false" href="/privacy.html">Privacy Policy</a></li></ul></div>
+       <div class="footer-column"><h3>Contact to Webmaster</h3><ul><li class="nav-item"><a class="nav-link" data-ajax="false"  href="https://forms.gle/ZyjQf8gB9oShmvDz7">Contact to Webmaster</a></li></ul>
+       </div>
+       <div class="footer-credit"><p>&copy; 2023 FBstocks. All rights reserved.</p></div>
+   </div>
+   </footer>
+
+<script src="scripts.js"></script>
 </body>
 </html>

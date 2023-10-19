@@ -1,0 +1,6 @@
+  ps aux | grep hello.go
+  kill -9 3452081
+  sudo lsof -i :1234
+  kill -9 3452137
+  nmap localhost
+  go run hello.go > stdout.log 2> stderr.log &
