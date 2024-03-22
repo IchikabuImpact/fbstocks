@@ -9,6 +9,10 @@ import (
     "io/ioutil"
     "log"
     "net/http"
+    "github.com/gin-contrib/sessions"
+    "github.com/gin-contrib/sessions/cookie"
+    "crypto/rand"
+    "encoding/base64"
 )
 
 type Config struct {
@@ -20,6 +24,8 @@ type Config struct {
 }
 
 func main() {
+
+
     configData, err := ioutil.ReadFile("config.json")
     if err != nil {
         log.Fatalf("Failed to read config file: %s", err)
@@ -39,11 +45,33 @@ func main() {
     }
 
     r := gin.Default()
+    // 秘密キーをランダムに生成
+    secretKey, err := generateRandomString(32) // 32バイトのランダムな文字列
+    if err != nil {
+        log.Fatalf("Failed to generate secret key: %v", err)
+    }
+
+    store := cookie.NewStore([]byte(secretKey))
+    r.Use(sessions.Sessions("mysession", store))
+    // テンプレートファイル読み込み
+    r.LoadHTMLGlob("/var/www/fbstocks/public/views/*")
+
     r.GET("/api/auth/google", func(c *gin.Context) { handleGoogleAuth(c, conf) })
     r.GET("/api/auth/google/callback", func(c *gin.Context) { handleGoogleCallback(c, conf) })
+    r.GET("/api/dashboard", dashboardHandler)
 
 
     log.Fatal(r.Run(":1234"))
+}
+
+// generateRandomString は指定された長さのランダムな文字列を生成します。
+func generateRandomString(length int) (string, error) {
+    b := make([]byte, length)
+    _, err := rand.Read(b)
+    if err != nil {
+        return "", err
+    }
+    return base64.URLEncoding.EncodeToString(b), nil
 }
 
 func handleGoogleAuth(c *gin.Context, conf *oauth2.Config) {
@@ -83,5 +111,33 @@ func handleGoogleCallback(c *gin.Context, conf *oauth2.Config) {
         return
     }
 
-    c.Redirect(http.StatusFound, "/dashboard.html")
+    // セッションを取得
+    session := sessions.Default(c)
+
+    // ユーザー情報をセッションに保存
+    session.Set("username", userInfo["name"].(string))
+    if err := session.Save(); err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save session"})
+        return
+    }
+    // ダッシュボードページへのリダイレクト
+    c.Redirect(http.StatusFound, "/api/dashboard")
+
 }
+
+func dashboardHandler(c *gin.Context) {
+    session := sessions.Default(c)
+    userName := session.Get("username")
+    if userName == nil {
+        // ログインページにリダイレクト
+        c.Redirect(http.StatusFound, "/index.html")
+        return
+    }
+
+    // テンプレートにユーザー名を渡してレンダリング
+    c.HTML(http.StatusOK, "dashboard.html", gin.H{"Username": userName})
+
+
+}
+
+
