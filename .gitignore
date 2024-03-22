@@ -148,3 +148,7 @@ dist
 
 .DS_Store
 Thumbs.db
+
+
+# Google OAuth設定
+config.json
