@@ -1,3 +1,4 @@
+/*
 package main
 
 import (
@@ -69,4 +70,4 @@ func main() {
     })
 	log.Fatal(http.ListenAndServe(":1234", nil))
 }
-
+*/
