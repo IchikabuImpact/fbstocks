@@ -5,9 +5,9 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 	"encoding/json"
-	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
@@ -26,7 +26,7 @@ type Config struct {
 
 func main() {
 
-	configData, err := ioutil.ReadFile("config.json")
+	configData, err := os.ReadFile("config.json")
 	if err != nil {
 		log.Fatalf("Failed to read config file: %s", err)
 	}
