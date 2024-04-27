@@ -4,38 +4,51 @@
         const data = await response.text();
         return data.split('\n').filter(ticker => ticker.length > 0);
     }
-    async function fetchAndDisplayStockData(ticker) {
-        const response = await fetch(`${ticker}.json`);
-        const data = await response.json();
-        const dataDiv = document.getElementById('stockData');
-        var currentPrice = parseFloat(data.currentPrice.toString().replace(/,/g,'').replace(/¥/g,'')); 
-        var previousClose = parseFloat(data.previousClose.toString().replace(/,/g,'').replace(/¥/g,''));
-        const priceChange = currentPrice - previousClose;
-        const priceChangePercentage = (priceChange / previousClose) * 100;
-        const absolutePercentage = Math.abs(priceChangePercentage);
-        const colorIntensity = Math.min(Math.round(absolutePercentage), 100);
-        let color, textColor;
-        if (priceChangePercentage === 0) {
-            color = 'rgba(255, 255, 255, 1)'; // white background
-            textColor = 'rgba(0, 0, 0, 1)'; // black text
-        } else {
-            //const alpha = colorIntensity / 100;
-            const alpha = Math.min((colorIntensity / 50), 1); 
-            color = (priceChangePercentage > 0) ? `rgba(0, 255, 0, ${alpha})` : `rgba(255, 0, 0, ${alpha})`;
-            textColor = 'rgba(0, 0, 0, 1)'; // black text
-        }
-        dataDiv.innerHTML += `<div class="stock" style="background-color: ${color}; color: ${textColor};">
-                                <p class="stock-name">${data.ticker}: ${data.companyName}</p>
-                                <p class="stock-price-change">${data.currentPrice}</p>
-                                <p class="stock-price-change-percentage">${priceChangePercentage.toFixed(2)}%</p>
-                              </div>`;
+
+
+function calculateBackgroundColor(priceChangePercentage) {
+    if (priceChangePercentage === 0) {
+        return '#666666'; // 灰色
+    } else if (priceChangePercentage > 0) {
+        // 緑色
+        let greenIntensity = Math.min(Math.abs(priceChangePercentage) / 5, 1);
+        return `rgba(0, ${200 + 55 * greenIntensity}, 0)`; // 色の強さを調整
+    } else {
+        // 赤色
+        let redIntensity = Math.min(Math.abs(priceChangePercentage) / 5, 1);
+        return `rgba(${200 + 55 * redIntensity}, 0, 0)`; // 色の強さを調整
+    }
+}
+
+async function fetchAndDisplayStockData(ticker) {
+    const response = await fetch(`${ticker}.json`);
+    const data = await response.json();
+    const dataDiv = document.getElementById('stockData');
+
+    var currentPrice = parseFloat(data.currentPrice.slice(1).replace(/,/g, ''));
+    var previousClose = parseFloat(data.previousClose.slice(1).replace(/,/g, ''));
+
+    if (isNaN(currentPrice) || isNaN(previousClose) || previousClose === 0) {
+        console.log(`Invalid data for ticker ${ticker}: currentPrice=${data.currentPrice}, previousClose=${data.previousClose}`);
+        return;
     }
 
-    fetchCSV().then(tickers => {
-        tickers.forEach(fetchAndDisplayStockData);
-    });
+    const priceChange = currentPrice - previousClose;
+    const priceChangePercentage = (priceChange / previousClose) * 100;
+    const backgroundColor = calculateBackgroundColor(priceChangePercentage);
+    const textColor = 'rgba(255, 255, 255, 1)'; // 文字色は白
 
-// fetchCSV().then(tickers => {
-//      tickers.forEach(fetchAndDisplayStockData);
-//  });
-  
+    // パーセンテージ表示のフォーマットを調整
+    const formattedPercentage = priceChangePercentage > 0 ? `+${priceChangePercentage.toFixed(2)}%` : `${priceChangePercentage.toFixed(2)}%`;
+
+    dataDiv.innerHTML += `<div class="stock" style="background-color: ${backgroundColor}; color: ${textColor};">
+                                <p class="stock-name">${data.ticker}: ${data.companyName}</p>
+                                <p class="stock-price-change">${data.currentPrice}</p>
+                                <p class="stock-price-change-percentage">${formattedPercentage}</p>
+                              </div>`;
+}
+
+fetchCSV().then(tickers => {
+    tickers.forEach(fetchAndDisplayStockData);
+});
+
