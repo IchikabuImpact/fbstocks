@@ -5,7 +5,9 @@ import (
 	"log"
 	"os"
 
-	"github.com/fbstocks/api/google_auth" // パッケージのインポート
+	// パッケージのインポート
+	"github.com/fbstocks/api/google_auth"
+
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
