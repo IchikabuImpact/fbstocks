@@ -3,18 +3,28 @@ const path = require('path');
 const { exec } = require('child_process');
 
 // Path to the CSV file
-const CSV_PATH = path.join(__dirname, 'public', 'tickers.csv');
+const CSV_PATH = path.join(__dirname, 'tickers.csv');
 
 // Timeout between requests (in milliseconds)
 const TIMEOUT = 500;
 
+// Number of retry attempts
+const MAX_RETRIES = 3;
+
 // Function to scrape data and write to JSON file for each ticker
-function scrapeAndSave(ticker) {
+function scrapeAndSave(ticker, retries = 0) {
   return new Promise((resolve, reject) => {
     exec(`node StockDataScraper.js ${ticker}`, (error, stdout, stderr) => {
       if (error) {
-        console.error(`Error executing script: ${error}`);
-        reject(error);
+        console.error(`Error executing script for ticker ${ticker}: ${error}`);
+        if (retries < MAX_RETRIES) {
+          console.log(`Retrying ticker ${ticker} (${retries + 1}/${MAX_RETRIES})`);
+          setTimeout(() => {
+            scrapeAndSave(ticker, retries + 1).then(resolve).catch(reject);
+          }, TIMEOUT);
+        } else {
+          reject(error);
+        }
         return;
       }
 
@@ -23,7 +33,7 @@ function scrapeAndSave(ticker) {
 
       fs.writeFile(outputPath, stdout, (err) => {
         if (err) {
-          console.error(`Error writing file: ${err}`);
+          console.error(`Error writing file for ticker ${ticker}: ${err}`);
           reject(err);
         } else {
           console.log(`Saved data for ticker ${ticker} to ${ticker}.json`);
@@ -58,9 +68,14 @@ function loadTickersFromCSV(filePath) {
 async function run() {
   const tickers = await loadTickersFromCSV(CSV_PATH);
   for (let ticker of tickers) {
-    await scrapeAndSave(ticker);
+    try {
+      await scrapeAndSave(ticker);
+    } catch (err) {
+      console.error(`Failed to process ticker ${ticker} after ${MAX_RETRIES} retries.`);
+    }
     await delay(TIMEOUT);
   }
 }
 
 run();
+
