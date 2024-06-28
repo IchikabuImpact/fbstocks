@@ -152,3 +152,9 @@ Thumbs.db
 
 # Google OAuth設定
 config.json
+
+
+bfg-1.13.0.jar
+selenium-server-4.4.0.jar
+*.jar
+sudo
