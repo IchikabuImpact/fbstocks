@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kenchanbaken/fbstocks.git"
+    "url": "git+https://github.com/IchikabuImpact/fbstocks.git"
   },
   "keywords": [
     "stocks"
@@ -16,10 +16,11 @@
   "author": "kenchanbaken",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kenchanbaken/fbstocks/issues"
+    "url": "https://github.com/IchikabuImpact/fbstocks/issues"
   },
-  "homepage": "https://github.com/kenchanbaken/fbstocks#readme",
+  "homepage": "https://github.com/IchikabuImpact/fbstocks#readme",
   "dependencies": {
-    "selenium-webdriver": "^4.10.0"
+    "selenium-webdriver": "^4.10.0",
+     "chromedriver": "^126.0.0"
   }
 }

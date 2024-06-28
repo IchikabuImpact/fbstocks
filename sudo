@@ -1,0 +1,8 @@
+#!/bin/bash
+
+SERVICE="selenium-server"
+
+if ! systemctl is-active --quiet $SERVICE; then
+  systemctl start $SERVICE
+fi
+

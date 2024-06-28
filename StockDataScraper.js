@@ -1,18 +1,15 @@
 const { Builder, By, Key, until } = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
-const path = require('path');
 
 const options = new chrome.Options();
 options.addArguments('--headless', '--disable-cache');
-
-// Set ChromeDriver path
-const service = new chrome.ServiceBuilder('/usr/local/bin/chromedriver');
 
 var ticker = process.argv[2];
 if (ticker == null) {
   ticker = "1332";
 }
 
+const seleniumServerUrl = 'http://localhost:4444';  // Selenium ServerのURL
 const urlGoogleFinance = `https://www.google.com/finance/quote/${ticker}:TYO?sa=X&ved=2ahUKEwiG1vL6yZzxAhUD4zgGHQGxD7QQ3ecFegQINRAS`;
 const urlKabutan = `https://kabutan.jp/stock/?code=${ticker}`;
 
@@ -31,13 +28,13 @@ async function getElementText(driver, by, timeout = 10000) {
   let driver = await new Builder()
     .forBrowser('chrome')
     .setChromeOptions(options)
-    .setChromeService(service)
+    .usingServer(seleniumServerUrl)  // Selenium ServerのURLを指定
     .build();
 
   try {
     // Retrieve the company name from Kabutan
     await driver.get(urlKabutan);
-    let companyName = await getElementText(driver, By.xpath('/html/body/div[1]/div[3]/div[1]/div[4]/div[4]/h3'));
+    let companyName = await getElementText(driver, By.css('div.stock_summary div h3'));
 
     // Retrieve the stock price from Google Finance
     await driver.get(urlGoogleFinance);
