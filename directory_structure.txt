@@ -1,767 +1,143 @@
-ファイル構成 (/var/www/fbstocks):
-| | |____fbstocks
-| | | |____main.go.20240428
-| | | |____node_modules
-| | | | |____immediate
-| | | | | |____lib
-| | | | | | |____index.js
-| | | | | | |____browser.js
-| | | | | |____dist
-| | | | | | |____immediate.min.js
-| | | | | | |____immediate.js
-| | | | | |____LICENSE.txt
-| | | | | |____README.md
-| | | | | |____package.json
-| | | | |____inflight
-| | | | | |____inflight.js
-| | | | | |____README.md
-| | | | | |____package.json
-| | | | | |____LICENSE
-| | | | |____string_decoder
-| | | | | |____lib
-| | | | | | |____string_decoder.js
-| | | | | |____.travis.yml
-| | | | | |____README.md
-| | | | | |____package.json
-| | | | | |____LICENSE
-| | | | |____wrappy
-| | | | | |____wrappy.js
-| | | | | |____README.md
-| | | | | |____package.json
-| | | | | |____LICENSE
-| | | | |____isarray
-| | | | | |____test.js
-| | | | | |____.travis.yml
-| | | | | |____Makefile
-| | | | | |____index.js
-| | | | | |____.npmignore
-| | | | | |____README.md
-| | | | | |____package.json
-| | | | | |____component.json
-| | | | |____concat-map
-| | | | | |____test
-| | | | | | |____map.js
-| | | | | |____.travis.yml
-| | | | | |____index.js
-| | | | | |____README.markdown
-| | | | | |____example
-| | | | | | |____map.js
-| | | | | |____package.json
-| | | | | |____LICENSE
-| | | | |____fs.realpath
-| | | | | |____old.js
-| | | | | |____index.js
-| | | | | |____README.md
-| | | | | |____package.json
-| | | | | |____LICENSE
-| | | | |____selenium-webdriver
-| | | | | |____CHANGES.md
-| | | | | |____testing
-| | | | | | |____index.js
-| | | | | |____ie.js
-| | | | | |____lib
-| | | | | | |____symbols.js
-| | | | | | |____atoms
-| | | | | | | |____find-elements.js
-| | | | | | | |____mutation-listener.js
-| | | | | | | |____get-attribute.js
-| | | | | | | |____is-displayed.js
-| | | | | | |____webelement.js
-| | | | | | |____command.js
-| | | | | | |____util.js
-| | | | | | |____webdriver.js
-| | | | | | |____proxy.js
-| | | | | | |____capabilities.js
-| | | | | | |____session.js
-| | | | | | |____pinnedScript.js
-| | | | | | |____logging.js
-| | | | | | |____error.js
-| | | | | | |____promise.js
-| | | | | | |____virtual_authenticator.js
-| | | | | | |____until.js
-| | | | | | |____select.js
-| | | | | | |____by.js
-| | | | | | |____http.js
-| | | | | | |____input.js
-| | | | | |____net
-| | | | | | |____index.js
-| | | | | | |____portprober.js
-| | | | | |____chromium.js
-| | | | | |____http
-| | | | | | |____util.js
-| | | | | | |____index.js
-| | | | | |____bidi
-| | | | | | |____scriptManager.js
-| | | | | | |____browsingContextInspector.js
-| | | | | | |____logInspector.js
-| | | | | | |____realmInfo.js
-| | | | | | |____index.js
-| | | | | | |____evaluateResult.js
-| | | | | | |____argumentValue.js
-| | | | | | |____resultOwnership.js
-| | | | | | |____browsingContext.js
-| | | | | | |____logEntries.js
-| | | | | | |____browsingContextTypes.js
-| | | | | | |____protocolType.js
-| | | | | | |____protocolValue.js
-| | | | | | |____filterBy.js
-| | | | | |____NOTICE
-| | | | | |____remote
-| | | | | | |____util.js
-| | | | | | |____index.js
-| | | | | |____safari.js
-| | | | | |____proxy.js
-| | | | | |____index.js
-| | | | | |____firefox.js
-| | | | | |____devtools
-| | | | | | |____CDPConnection.js
-| | | | | | |____networkinterceptor.js
-| | | | | |____io
-| | | | | | |____exec.js
-| | | | | | |____index.js
-| | | | | | |____zip.js
-| | | | | |____README.md
-| | | | | |____common
-| | | | | | |____driverFinder.js
-| | | | | | |____seleniumManager.js
-| | | | | |____bin
-| | | | | | |____macos
-| | | | | | | |____selenium-manager
-| | | | | | |____linux
-| | | | | | | |____selenium-manager
-| | | | | | |____windows
-| | | | | | | |____selenium-manager.exe
-| | | | | |____example
-| | | | | | |____google_search_test.js
-| | | | | | |____headless.js
-| | | | | | |____google_search.js
-| | | | | | |____logging.js
-| | | | | | |____firefox_channels.js
-| | | | | | |____chrome_android.js
-| | | | | | |____chrome_mobile_emulation.js
-| | | | | |____package.json
-| | | | | |____LICENSE
-| | | | | |____chrome.js
-| | | | | |____edge.js
-| | | | |____path-is-absolute
-| | | | | |____readme.md
-| | | | | |____license
-| | | | | |____index.js
-| | | | | |____package.json
-| | | | |____util-deprecate
-| | | | | |____History.md
-| | | | | |____node.js
-| | | | | |____browser.js
-| | | | | |____README.md
-| | | | | |____package.json
-| | | | | |____LICENSE
-| | | | |____setimmediate
-| | | | | |____LICENSE.txt
-| | | | | |____package.json
-| | | | | |____setImmediate.js
-| | | | |____minimatch
-| | | | | |____minimatch.js
-| | | | | |____README.md
-| | | | | |____package.json
-| | | | | |____LICENSE
-| | | | |____core-util-is
-| | | | | |____lib
-| | | | | | |____util.js
-| | | | | |____README.md
-| | | | | |____package.json
-| | | | | |____LICENSE
-| | | | |____process-nextick-args
-| | | | | |____license.md
-| | | | | |____readme.md
-| | | | | |____index.js
-| | | | | |____package.json
-| | | | |____.package-lock.json
-| | | | |____readable-stream
-| | | | | |____CONTRIBUTING.md
-| | | | | |____lib
-| | | | | | |_____stream_duplex.js
-| | | | | | |_____stream_transform.js
-| | | | | | |_____stream_writable.js
-| | | | | | |_____stream_passthrough.js
-| | | | | | |____internal
-| | | | | | | |____streams
-| | | | | | | | |____destroy.js
-| | | | | | | | |____stream.js
-| | | | | | | | |____BufferList.js
-| | | | | | | | |____stream-browser.js
-| | | | | | |_____stream_readable.js
-| | | | | |____readable-browser.js
-| | | | | |____doc
-| | | | | | |____wg-meetings
-| | | | | | | |____2015-01-30.md
-| | | | | |____duplex.js
-| | | | | |____passthrough.js
-| | | | | |____transform.js
-| | | | | |____.travis.yml
-| | | | | |____writable.js
-| | | | | |____duplex-browser.js
-| | | | | |____GOVERNANCE.md
-| | | | | |____writable-browser.js
-| | | | | |____README.md
-| | | | | |____package.json
-| | | | | |____LICENSE
-| | | | | |____readable.js
-| | | | |____jszip
-| | | | | |____CHANGES.md
-| | | | | |____LICENSE.markdown
-| | | | | |____.editorconfig
-| | | | | |____lib
-| | | | | | |____crc32.js
-| | | | | | |____zipEntries.js
-| | | | | | |____nodejs
-| | | | | | | |____NodejsStreamInputAdapter.js
-| | | | | | | |____NodejsStreamOutputAdapter.js
-| | | | | | |____zipEntry.js
-| | | | | | |____support.js
-| | | | | | |____license_header.js
-| | | | | | |____flate.js
-| | | | | | |____defaults.js
-| | | | | | |____load.js
-| | | | | | |____utf8.js
-| | | | | | |____reader
-| | | | | | | |____DataReader.js
-| | | | | | | |____readerFor.js
-| | | | | | | |____ArrayReader.js
-| | | | | | | |____StringReader.js
-| | | | | | | |____Uint8ArrayReader.js
-| | | | | | | |____NodeBufferReader.js
-| | | | | | |____index.js
-| | | | | | |____compressions.js
-| | | | | | |____generate
-| | | | | | | |____index.js
-| | | | | | | |____ZipFileWorker.js
-| | | | | | |____signature.js
-| | | | | | |____readable-stream-browser.js
-| | | | | | |____nodejsUtils.js
-| | | | | | |____stream
-| | | | | | | |____Crc32Probe.js
-| | | | | | | |____StreamHelper.js
-| | | | | | | |____ConvertWorker.js
-| | | | | | | |____DataWorker.js
-| | | | | | | |____DataLengthProbe.js
-| | | | | | | |____GenericWorker.js
-| | | | | | |____utils.js
-| | | | | | |____base64.js
-| | | | | | |____external.js
-| | | | | | |____zipObject.js
-| | | | | | |____compressedObject.js
-| | | | | | |____object.js
-| | | | | |____.jekyll-metadata
-| | | | | |____tsconfig.json
-| | | | | |____dist
-| | | | | | |____jszip.js
-| | | | | | |____jszip.min.js
-| | | | | |____.codeclimate.yml
-| | | | | |____.travis.yml
-| | | | | |____sponsors.md
-| | | | | |____deps.js
-| | | | | |____index.d.ts
-| | | | | |____.github
-| | | | | | |____workflows
-| | | | | | | |____pr.yaml
-| | | | | |____.eslintrc.js
-| | | | | |____README.markdown
-| | | | | |____graph.svg
-| | | | | |____package.json
-| | | | | |____vendor
-| | | | | | |____FileSaver.js
-| | | | |____rimraf
-| | | | | |____rimraf.js
-| | | | | |____bin.js
-| | | | | |____README.md
-| | | | | |____package.json
-| | | | | |____LICENSE
-| | | | | |____CHANGELOG.md
-| | | | |____inherits
-| | | | | |____README.md
-| | | | | |____package.json
-| | | | | |____LICENSE
-| | | | | |____inherits_browser.js
-| | | | | |____inherits.js
-| | | | |____glob
-| | | | | |____sync.js
-| | | | | |____glob.js
-| | | | | |____README.md
-| | | | | |____package.json
-| | | | | |____LICENSE
-| | | | | |____common.js
-| | | | |____tmp
-| | | | | |____lib
-| | | | | | |____tmp.js
-| | | | | |____README.md
-| | | | | |____package.json
-| | | | | |____LICENSE
-| | | | | |____CHANGELOG.md
-| | | | |____safe-buffer
-| | | | | |____index.js
-| | | | | |____index.d.ts
-| | | | | |____README.md
-| | | | | |____package.json
-| | | | | |____LICENSE
-| | | | |____brace-expansion
-| | | | | |____index.js
-| | | | | |____README.md
-| | | | | |____package.json
-| | | | | |____LICENSE
-| | | | |____lie
-| | | | | |____lib
-| | | | | | |____index.js
-| | | | | | |____browser.js
-| | | | | |____license.md
-| | | | | |____dist
-| | | | | | |____lie.polyfill.min.js
-| | | | | | |____lie.polyfill.js
-| | | | | | |____lie.js
-| | | | | | |____lie.min.js
-| | | | | |____lie.d.ts
-| | | | | |____polyfill.js
-| | | | | |____README.md
-| | | | | |____package.json
-| | | | |____.bin
-| | | | | |____rimraf
-| | | | |____pako
-| | | | | |____lib
-| | | | | | |____deflate.js
-| | | | | | |____inflate.js
-| | | | | | |____zlib
-| | | | | | | |____messages.js
-| | | | | | | |____crc32.js
-| | | | | | | |____deflate.js
-| | | | | | | |____gzheader.js
-| | | | | | | |____trees.js
-| | | | | | | |____zstream.js
-| | | | | | | |____inflate.js
-| | | | | | | |____inffast.js
-| | | | | | | |____adler32.js
-| | | | | | | |____inftrees.js
-| | | | | | | |____README
-| | | | | | | |____constants.js
-| | | | | | |____utils
-| | | | | | | |____strings.js
-| | | | | | | |____common.js
-| | | | | |____dist
-| | | | | | |____pako_inflate.min.js
-| | | | | | |____pako.js
-| | | | | | |____pako_deflate.min.js
-| | | | | | |____pako_inflate.js
-| | | | | | |____pako.min.js
-| | | | | | |____pako_deflate.js
-| | | | | |____index.js
-| | | | | |____README.md
-| | | | | |____package.json
-| | | | | |____LICENSE
-| | | | | |____CHANGELOG.md
-| | | | |____balanced-match
-| | | | | |____index.js
-| | | | | |____LICENSE.md
-| | | | | |____.github
-| | | | | | |____FUNDING.yml
-| | | | | |____README.md
-| | | | | |____package.json
-| | | | |____ws
-| | | | | |____lib
-| | | | | | |____websocket.js
-| | | | | | |____extension.js
-| | | | | | |____subprotocol.js
-| | | | | | |____receiver.js
-| | | | | | |____sender.js
-| | | | | | |____stream.js
-| | | | | | |____validation.js
-| | | | | | |____limiter.js
-| | | | | | |____websocket-server.js
-| | | | | | |____buffer-util.js
-| | | | | | |____permessage-deflate.js
-| | | | | | |____event-target.js
-| | | | | | |____constants.js
-| | | | | |____index.js
-| | | | | |____browser.js
-| | | | | |____README.md
-| | | | | |____package.json
-| | | | | |____LICENSE
-| | | | | |____wrapper.mjs
-| | | | |____once
-| | | | | |____once.js
-| | | | | |____README.md
-| | | | | |____package.json
-| | | | | |____LICENSE
-| | | |____StockDataScraper.js
-| | | |____go.sum
-| | | |____main.go
-| | | |____updater.sh
-| | | |____stderr.log
-| | | |____go.mod
-| | | |____Exporter.js
-| | | |____config.json
-| | | |____directory_structure.txt
-| | | |____struct.sh
-| | | |____package-lock.json
-| | | |____internal
-| | | |____api
-| | | | |____go.sum
-| | | | |____stderr.log
-| | | | |____go.mod
-| | | | |____config.json
-| | | | |____stdout.log
-| | | | |____memo.txt
-| | | | |____hello.go
-| | | |____.git
-| | | | |____packed-refs
-| | | | |____info
-| | | | | |____exclude
-| | | | |____objects
-| | | | | |____1c
-| | | | | | |____a3f474aa2e243f64ae59ee20fd82be8a39457a
-| | | | | |____14
-| | | | | | |____f8738be57385e2e9199279e698bae0f97908e4
-| | | | | |____18
-| | | | | | |____878902352e1f0c7f0f60f8557c89ac47cd1d3e
-| | | | | |____a9
-| | | | | | |____cce18fc72a4a194647bd4283d8a61123586164
-| | | | | |____48
-| | | | | | |____d055d039b137396cc0d7cbf019c5b081a5a650
-| | | | | |____90
-| | | | | | |____a1f879154a3e1b4b2edac4c5102bc029696259
-| | | | | | |____5cfa03fc3a3f74edef6b2333f3eddec575ca3c
-| | | | | |____0c
-| | | | | | |____1238d40dd7595b03dddc9ed5a95b0a8a0fe637
-| | | | | |____b7
-| | | | | | |____15b53d1ab50622ceb486ecec0fdec406b5cd15
-| | | | | | |____94b87005636ea6dd97302d6a1bcc98af546ba7
-| | | | | |____5f
-| | | | | | |____c8d959abbf4aa66384eab7ccfeea0d6a4dd593
-| | | | | |____92
-| | | | | | |____0191e2e4b7cd43de9927d89c811f1ba4795b79
-| | | | | | |____85537c63f82b677476be32056e457a86e48369
-| | | | | |____98
-| | | | | | |____e1c4e150807750749b0c9ee680eff44cb0a8a3
-| | | | | | |____a1c04b920b1d2128b5e517fc0eb564c7a0658a
-| | | | | | |____83a719301703c5b3f74d8c2e9dbea7dc89fd84
-| | | | | |____c7
-| | | | | | |____7ffa44d0b54ac6481c0efa20db7855ff2f9bb2
-| | | | | |____dd
-| | | | | | |____a795c3513abf27bdfb8c0f5b879f4cb4e852a6
-| | | | | |____55
-| | | | | | |____e478624e36229ef3f126dd3b44033d2b0f9a51
-| | | | | |____info
-| | | | | |____f9
-| | | | | | |____d40191dd2a3b907f2696d1312329acf00e75a0
-| | | | | |____6e
-| | | | | | |____4bf8279f5a6391712199172cfcca4e424694cc
-| | | | | | |____a131753ed92149034e164895113435ad5db3bb
-| | | | | |____63
-| | | | | | |____4da9f8866a3616a66900cbabce480536779474
-| | | | | |____cd
-| | | | | | |____2d2dfaa53c42691cc14ae96e78e2f6ce4acb88
-| | | | | |____87
-| | | | | | |____711b7d329163573c1a8b6606a1ed234f4c1951
-| | | | | |____8a
-| | | | | | |____cec486125d42966d6528d628f90e3b7ace8daa
-| | | | | |____a6
-| | | | | | |____c57f5fb2ffba0a6af4278619c2983394d237cc
-| | | | | |____c4
-| | | | | | |____3e381dd9f22c4cdabf788c72220dd2da23302d
-| | | | | |____fb
-| | | | | | |____3f95063cb9dd35fd59627fa9281c75955faa3b
-| | | | | |____ef
-| | | | | | |____c9d72f41e4b847e5536ea379210e6c7f463e87
-| | | | | |____7e
-| | | | | | |____8cb4d3886bccaf8c979861984be591baa64b2c
-| | | | | |____7c
-| | | | | | |____8769d0fb471b3ee10ffe51cf0c817a205fbe32
-| | | | | |____49
-| | | | | | |____deca2587f5ebe999869b849fe91f8d525c13a8
-| | | | | |____0a
-| | | | | | |____fe1aa6cec1d001edd0e44a92675f66995ab90a
-| | | | | |____ac
-| | | | | | |____1e77454d7e9eec58dc55b6e3b1f7ed5d3200fb
-| | | | | |____db
-| | | | | | |____e1f99b8e00b6a27d790db18714d0a39bb9c33b
-| | | | | | |____7c76a399ff15ae929d2ffff25407710f6b0bbe
-| | | | | |____f8
-| | | | | | |____d40e061f465b172efdce620036c22d3a279620
-| | | | | | |____324014a0d3dd5fcaed6f78663b9cff79d24957
-| | | | | |____bb
-| | | | | | |____a893813ed1621cf0423f90310df9ea0b457ed2
-| | | | | |____1a
-| | | | | | |____e6a962313b37ffd3d985989262c0aa3bb84719
-| | | | | |____ea
-| | | | | | |____d8c11633dbc41aedcc1702e05539d39196af88
-| | | | | |____pack
-| | | | | | |____pack-0b141282f10b06994bbcb74b3231f2d7538f386a.idx
-| | | | | | |____pack-0b141282f10b06994bbcb74b3231f2d7538f386a.pack
-| | | | | |____28
-| | | | | | |____664e1d9fedb4ec8d5f71433116c11caa7832f6
-| | | | | |____d9
-| | | | | | |____986fa794ffd9bf76fc17baa1f01ff60ecb1952
-| | | | | | |____a9e5435d671bc675e131d498cfba70bc1b06d5
-| | | | | | |____462636f4ea79436de122fdb3c1303424199151
-| | | | | |____4f
-| | | | | | |____ab8431cbc8f2b1a3ec470c9b5d9ebb44d55550
-| | | | | | |____e835e024a15bdd21c5cb0148e0eb8eec29e4b6
-| | | | | |____fe
-| | | | | | |____2f890f18bb6bea4469f7241e6fedcf5623678e
-| | | | | | |____de4f348212c57442f27b58eb573bb96a5354d8
-| | | | | |____9b
-| | | | | | |____4826ba7ec8e23660d5c4447118bb905bf49d0f
-| | | | | | |____d74a6c3cf0f2a07644227aa2434cca9179d452
-| | | | | |____39
-| | | | | | |____d8a095ed8a0807e86867ab29e75e206202ad14
-| | | | | |____8e
-| | | | | | |____caf062c66e428d1e18a4dc9b5b1f533e1958a4
-| | | | | |____ca
-| | | | | | |____d82d4158683695c18aef8cbb64a8e89ce43a3c
-| | | | | | |____b3b065e4d9e32e5532bccdb276239fe3d800bd
-| | | | | |____4e
-| | | | | | |____2a9df50711b91b50b3ef663ef695c07fa66a96
-| | | | | |____4c
-| | | | | | |____9ad642df0f00ddeb35c4d5f6f5ea26859009ea
-| | | | | | |____8b4b4f8fad2a399113daaac2a3679745dab106
-| | | | | | |____5afbd519f18089f068b725f5eebe7597b6230b
-| | | | | |____ed
-| | | | | | |____fbf52929c15488e33b9c7cc38ac93a6f2c7bcc
-| | | | | | |____7699d9aec78b42bf37dd331a968b7c1eca8a82
-| | | | | |____e7
-| | | | | | |____81f5a9ba1f2671bc2f3344fe82131d26520f9a
-| | | | | |____f0
-| | | | | | |____12521b7f6e06d8b6d2cf6d954071ca0d6baf14
-| | | | | |____2b
-| | | | | | |____b1f2c4e0b5ea31603cd3fc3b54dd21927505fd
-| | | | | |____0e
-| | | | | | |____dc76a2ed1cea84b05ca4c5a425514ecefe64ea
-| | | | | | |____7cf1d600be22530a3538f63e621776824c2a19
-| | | | | |____74
-| | | | | | |____d1fa6502feede0e832179b726bcf5ded0ad15d
-| | | | | | |____eea83a941d89f05e026d456dec96181fd02b7c
-| | | | | |____0d
-| | | | | | |____4085ecba9726e61cb798f68a818b688ef5aba1
-| | | | | |____3f
-| | | | | | |____98d5d477156e9bc05bd8016b2ab948aa2a7dfb
-| | | | | |____ab
-| | | | | | |____e0ca84e8f4970ee94da86ccae7ecab7bfd7073
-| | | | | |____73
-| | | | | | |____0760abc2d7058cc638b229f0d02db00375cc32
-| | | | | |____d3
-| | | | | | |____da287fc33dcdc4b781de87b7e7c3f8204e23ab
-| | | | | |____10
-| | | | | | |____143d53cc025cc6282725105e3361e657a071b8
-| | | | | |____3c
-| | | | | | |____7c81221c14669312a4c4506f594fe76860f7ff
-| | | | | |____67
-| | | | | | |____1c10473e3ab6bc20eeffec4764e5ebeb365629
-| | | | | |____6a
-| | | | | | |____a9c65362a243d9e1ddd96fac9ca17d207e2080
-| | | | | | |____a9acd7f6a3043bce8ba595699769491caeb07c
-| | | | | |____a5
-| | | | | | |____ce31727598802253f286f4db16e13ffd8bee6c
-| | | | | |____b9
-| | | | | | |____e2dfffb398f803cc399b618a4bca0fbec27497
-| | | | | |____6c
-| | | | | | |____df9ab86ee57b83db09f3aa1c1b8f2b253ed47d
-| | | | | |____e5
-| | | | | | |____fe5732cf490eb94d960a313d6afebbd0ecb277
-| | | | | |____53
-| | | | | | |____a094025806a1c6e111f55ec2661fe4ee35201e
-| | | | | |____c0
-| | | | | | |____0515d6a417e79d42d99a18f8083e8ccbb59aa1
-| | | | | |____59
-| | | | | | |____eb680f242ab14819266f61e9b8146e6a7ec5eb
-| | | | | | |____c2777ae679c38d6cfe172449824aa21d5e91f2
-| | | | | | |____0def6574e4af1dea122d0170837428b9e702ba
-| | | | | |____56
-| | | | | | |____7c81e70bd7d0dacbd64cc74bf0e86ce6c9690e
-| | | | | |____2f
-| | | | | | |____12e750f4c7da27f3123a004dc815029a1c4fc1
-| | | | | |____44
-| | | | | | |____075614dc1f60ecb57083bb97f96f6a35d6068c
-| | | | | |____7d
-| | | | | | |____fc10f85f8a23bb59bc48e6604b0d97c8bb2121
-| | | | | | |____8b1b43d818c03662ab334ed0cfea7aa90bfee6
-| | | | | |____83
-| | | | | | |____d61a2ffc52ffa6837da195138cfe0bc8549062
-| | | | | |____86
-| | | | | | |____6f6f6f05a8d6c7fc0e332411fd96409c022ada
-| | | | | |____ce
-| | | | | | |____95b51d71460c6a876544a4824a0c3930ef4c64
-| | | | | |____29
-| | | | | | |____3641ebace71558180911fc1423d2707b62a6a0
-| | | | | |____0f
-| | | | | | |____733c8f68bcdbc67adfe2124adbd7d30b16494b
-| | | | | |____3d
-| | | | | | |____55f0a4b4788cf014ecda23f9ace13cce0a3235
-| | | | | | |____5dafe9396fbe1708f43f4d7737569e10ba7aa6
-| | | | | |____58
-| | | | | | |____6a3a4b046835c12498a2f1e89621559ac5f2ee
-| | | | | | |____c47883a49b9daa64c3cd63ec378c0cc33c8bad
-| | | | | |____6d
-| | | | | | |____f5d7278ff7a9133d2cb7304bfa6c95606c5b2e
-| | | | | |____81
-| | | | | | |____a29fa888df04b2cf4d12afe081d2250af5d8e9
-| | | | | |____91
-| | | | | | |____814a0af6856614e786a347207f1d576515fe14
-| | | | | |____d7
-| | | | | | |____35981b242765c31afe999d9ee26407671103c7
-| | | | | | |____219a7cbb2cd1baa5c2165adc6e1590b4db6d78
-| | | | | |____f3
-| | | | | | |____88499d076d3c2b03005ca1882c7bb8d573f05b
-| | | | | |____de
-| | | | | | |____7d70a6bcd22ee157a9c6d0be0930d1048ffe9d
-| | | | | |____f6
-| | | | | | |____3ec1b31e1335e30289391bda4c64668c7faadb
-| | | | | | |____6c9c37a8c347b04d769c0b09f418b625afa3a0
-| | | | | |____ad
-| | | | | | |____bd16c90263da0f781f9e244305945d3a65b2bd
-| | | | | |____05
-| | | | | | |____608a7bb2b9bdc3b499fb7fc3076b2f1c2ac309
-| | | | | |____3a
-| | | | | | |____d0fef869b242e2d8d2fb118ff85bfc79246550
-| | | | | |____12
-| | | | | | |____94e040b20889f0ef1f987bd48d6ee71a2ce53f
-| | | | | |____84
-| | | | | | |____9941f2d5ac78324ebe3d83200c413ec890bfdd
-| | | | | |____b3
-| | | | | | |____e136acc87246f47a5e8e6431326fd804e595f5
-| | | | | |____9f
-| | | | | | |____1763bbddbe1dcc988b0ad848345ae8fc610364
-| | | | | |____fd
-| | | | | | |____327901f9ace8c465321a5e3e5274deb6a296e9
-| | | | | |____b6
-| | | | | | |____a777f6100a5186a574cff97a60e2919750a69d
-| | | | | |____1f
-| | | | | | |____4e3d381928a952a3f276b2128388ee59a3c0f4
-| | | | | |____76
-| | | | | | |____58ad2c24a40cfd9321509e220fc05fc958612c
-| | | | | |____9e
-| | | | | | |____aaced6bc174203729b9991a2554bad71720f58
-| | | | | |____40
-| | | | | | |____fd5e60072f6a043b83166a38f354da5319f437
-| | | | | | |____72c6b5becaf443bf78b24a37314e67fdd48c18
-| | | | | |____11
-| | | | | | |____0aed6957e4dd7f68c52959c2052a4204c67051
-| | | | | |____fa
-| | | | | | |____125121fdeebfb0e58d32dae28f42db1c1c59c8
-| | | | | | |____06ec24ef44d1a9016b88dc6b444848d6e14181
-| | | | | | |____1d49a45eb2ba8e0025814836d427b8913ef8d3
-| | | | | |____e2
-| | | | | | |____93692536d1e152aa2fc14f9bb81f2db2105a72
-| | | | | |____df
-| | | | | | |____d0fff9c3d5ba33253333fc6b4367c364fe27b4
-| | | | | | |____c991b91794043a1b9f1a90b8f4c35f7888971c
-| | | | | | |____63a4bd1cde99e3309cd9f74f5b51e637316bed
-| | | | | |____5e
-| | | | | | |____388b60e701c9bab9d4ff0f937f814207436865
-| | | | | |____64
-| | | | | | |____bd429c06245eb7266efc999de26274a8884aeb
-| | | | | | |____8d572dd4ad9bfe157c940a12a01f67a543e222
-| | | | | |____e6
-| | | | | | |____941903928172faf388e2dd596e0778c148dfea
-| | | | | | |____9de29bb2d1d6434b8b29ae775ad8c2e48c5391
-| | | | | |____50
-| | | | | | |____895d2124738d8b36ea64e1e96d7042040244d5
-| | | | | |____ae
-| | | | | | |____beba649d2b748848df410ddf2f9df24d6eda15
-| | | | | | |____0c3b3a614de89c58388f6f43150d48949e369e
-| | | | | |____cc
-| | | | | | |____584e1780966251c5d08b3ddc15e9c39df3e85b
-| | | | | |____d4
-| | | | | | |____fe5810faa72aaa15b4dca6b2ea7adf7b4ebd81
-| | | | | |____d0
-| | | | | | |____59fae62cdfe652a689d4129a48dba2698b47f4
-| | | | | |____6f
-| | | | | | |____01a19385f15c6cf026f35ac455a1911ba87649
-| | | | | |____bc
-| | | | | | |____8268ca2bdf0aa466e2df922b1c7771e677b709
-| | | | | |____a8
-| | | | | | |____79d61d63e91e63a5670dcc38cf2d0fd227d34b
-| | | | | |____13
-| | | | | | |____129a7add1d461fba36bd845eb40a6d27b18894
-| | | | | | |____5494f9c5eb78868751e3e934c704474432cd23
-| | | | | |____38
-| | | | | | |____42681bfe6795d1c3035d31e2ccc6633acebfd3
-| | | | | |____c5
-| | | | | | |____880272390a1eabdf65aabdfd037a1c59e5fed5
-| | | | | |____a0
-| | | | | | |____a21a90d8f5e7514e851c46f05e086471ce7c87
-| | | | | |____07
-| | | | | | |____66901a75b8ff34e1f454e9e92324f570332ab0
-| | | | |____description
-| | | | |____index
-| | | | |____COMMIT_EDITMSG
-| | | | |____branches
-| | | | |____hooks
-| | | | | |____pre-commit.sample
-| | | | | |____pre-receive.sample
-| | | | | |____pre-merge-commit.sample
-| | | | | |____pre-rebase.sample
-| | | | | |____fsmonitor-watchman.sample
-| | | | | |____pre-push.sample
-| | | | | |____update.sample
-| | | | | |____push-to-checkout.sample
-| | | | | |____commit-msg.sample
-| | | | | |____post-update.sample
-| | | | | |____pre-applypatch.sample
-| | | | | |____applypatch-msg.sample
-| | | | | |____prepare-commit-msg.sample
-| | | | |____config
-| | | | |____HEAD
-| | | | |____logs
-| | | | | |____HEAD
-| | | | | |____refs
-| | | | | | |____heads
-| | | | | | | |____main
-| | | | | | |____remotes
-| | | | | | | |____origin
-| | | | | | | | |____HEAD
-| | | | | | | | |____main
-| | | | |____refs
-| | | | | |____heads
-| | | | | | |____main
-| | | | | |____tags
-| | | | | |____remotes
-| | | | | | |____origin
-| | | | | | | |____HEAD
-| | | | | | | |____main
-| | | |____scripts
-| | | |____stdout.log
-| | | |____.gitignore
-| | | |____README.md
-| | | |____package.json
-| | | |____web
-| | | |____cmd
-| | | |____public
-| | | | |____9353.json
-| | | | |____tickers.csv
-| | | | |____9363.json
-| | | | |____privacy-policy.html
-| | | | |____7298.json
-| | | | |____9930.json
-| | | | |____7565.json
-| | | | |____scripts.js
-| | | | |____6927.json
-| | | | |____8029.json
-| | | | |____testhello.html
-| | | | |____5288.json
-| | | | |____css
-| | | | | |____styles.css
-| | | | |____index.html
-| | | | |____4992.json
-| | | | |____.gitignore
-| | | | |____term-of-use.html
-| | | | |____8887.json
-| | | | |____5395.json
-| | | | |____6356.json
-| | | | |____images
-| | | | | |____sign-in-with-google.png
-| | | | | |____fbstocks120-120.png
-| | | | |____views
-| | | | | |____dashboard.html
-| | | | |____dump.sql
-| | | |____pkg
-| | | | |____linux_amd64
-| | | | | |____github.com
-| | | | | | |____gin-contrib
-| | | | | | | |____sessions.a
+.
+./go.sum
+./updater.sh
+./stockdata
+./fbstocks
+./db
+./go.mod
+./config.json
+./directory_structure.txt
+./struct.sh
+./sudo
+./chromedriver-linux64
+./chromedriver-linux64/chromedriver
+./package-lock.json
+./internal
+./internal/stockdata
+./internal/stockdata/stock_data.go
+./internal/handlers
+./internal/handlers/auth.go
+./internal/handlers/dashboard.go
+./internal/config
+./internal/config/config.json
+./internal/config/config.go
+./api
+./api/go.sum
+./api/go.mod
+./api/config.json
+./api/memo.txt
+./api/hello.go
+./.git
+./.git/ORIG_HEAD
+./.git/packed-refs
+./.git/info
+./.git/info/exclude
+./.git/info/refs
+./.git/objects
+./.git/objects/info
+./.git/objects/info/commit-graph
+./.git/objects/info/packs
+./.git/objects/pack
+./.git/objects/pack/pack-4adaa02c484f48514b9bbadbd7c2d7f420ba69c0.pack
+./.git/objects/pack/pack-4adaa02c484f48514b9bbadbd7c2d7f420ba69c0.idx
+./.git/objects/pack/pack-4adaa02c484f48514b9bbadbd7c2d7f420ba69c0.rev
+./.git/description
+./.git/filter-repo
+./.git/filter-repo/ref-map
+./.git/filter-repo/suboptimal-issues
+./.git/filter-repo/commit-map
+./.git/filter-repo/already_ran
+./.git/index
+./.git/COMMIT_EDITMSG
+./.git/branches
+./.git/hooks
+./.git/hooks/pre-commit.sample
+./.git/hooks/post-commit
+./.git/hooks/post-checkout
+./.git/hooks/pre-receive.sample
+./.git/hooks/pre-merge-commit.sample
+./.git/hooks/pre-rebase.sample
+./.git/hooks/pre-push
+./.git/hooks/fsmonitor-watchman.sample
+./.git/hooks/pre-push.sample
+./.git/hooks/update.sample
+./.git/hooks/push-to-checkout.sample
+./.git/hooks/commit-msg.sample
+./.git/hooks/post-update.sample
+./.git/hooks/pre-applypatch.sample
+./.git/hooks/applypatch-msg.sample
+./.git/hooks/prepare-commit-msg.sample
+./.git/hooks/post-merge
+./.git/config
+./.git/HEAD
+./.git/lfs
+./.git/lfs/cache
+./.git/lfs/cache/locks
+./.git/lfs/cache/locks/refs
+./.git/lfs/cache/locks/refs/heads
+./.git/lfs/cache/locks/refs/heads/main
+./.git/lfs/cache/locks/refs/heads/main/verifiable
+./.git/lfs/tmp
+./.git/logs
+./.git/logs/HEAD
+./.git/logs/refs
+./.git/logs/refs/heads
+./.git/logs/refs/heads/main
+./.git/logs/refs/remotes
+./.git/logs/refs/remotes/origin
+./.git/logs/refs/remotes/origin/main
+./.git/refs
+./.git/refs/replace
+./.git/refs/heads
+./.git/refs/tags
+./.git/refs/remotes
+./.git/refs/remotes/origin
+./.git/refs/remotes/origin/main
+./scripts
+./server.go
+./.gitignore
+./.gitattributes
+./README.md
+./package.json
+./web
+./cmd
+./cmd/stockdata
+./cmd/stockdata/main.go
+./cmd/fbstocks
+./cmd/fbstocks/main.go
+./views
+./views/dashboard.html
+./views/login.html
+./public
+./public/9353.json
+./public/9363.json
+./public/privacy-policy.html
+./public/7298.json
+./public/9930.json
+./public/7565.json
+./public/scripts.js
+./public/6927.json
+./public/8029.json
+./public/testhello.html
+./public/5288.json
+./public/css
+./public/css/styles.css
+./public/index.html
+./public/4992.json
+./public/.gitignore
+./public/term-of-use.html
+./public/8887.json
+./public/5395.json
+./public/6356.json
+./public/images
+./public/images/sign-in-with-google.png
+./public/images/fbstocks120-120.png
+./public/views
+./public/views/dashboard.html
+./public/dump.sql
+./configs
+./pkg
+./pkg/linux_amd64
+./pkg/linux_amd64/github.com
+./pkg/linux_amd64/github.com/gin-contrib
+./pkg/linux_amd64/github.com/gin-contrib/sessions.a

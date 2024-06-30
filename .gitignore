@@ -1,3 +1,4 @@
+# Existing entries
 config.js
 stub.js
 # Logs
@@ -130,31 +131,30 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-
 # Golang
 *.o
 *.a
 *.so
-
 /main
-
 /vendor/
-
 *.test
 *.out
-
 .idea/
 .vscode/
-
 .DS_Store
 Thumbs.db
-
 
 # Google OAuth設定
 config.json
 
-
 bfg-1.13.0.jar
 selenium-server-4.4.0.jar
 *.jar
-sudo
+
+# Additional entries
+/var/www/stub
+*.csv
+directory_structure.txt
+/var/www/stub/project_backup
+
+
