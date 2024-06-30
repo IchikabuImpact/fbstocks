@@ -1,32 +1,80 @@
 package main
 
 import (
-	"fmt"
-	"log"
-	"net/http"
-	"fbstocks/stockdata"
+    "fmt"
+    "html/template"
+    "io"
+    "log"
+    "net/http"
+
+    "github.com/gorilla/sessions"
+    "github.com/labstack/echo/v4"
+    "github.com/labstack/echo/v4/middleware"
+    "github.com/labstack/echo-contrib/session"
+    "fbstocks/internal/config"
+    "fbstocks/internal/handlers"
+    "fbstocks/internal/stockdata"
 )
 
-func stockDataHandler(w http.ResponseWriter, r *http.Request) {
-	ticker := r.URL.Query().Get("ticker")
-	if ticker == "" {
-		http.Error(w, "Ticker is required", http.StatusBadRequest)
-		return
-	}
+type Template struct {
+    templates *template.Template
+}
 
-	data, err := stockdata.GetStockDataJSON(ticker)
-	if err != nil {
-		http.Error(w, fmt.Sprintf("Error retrieving stock data: %v", err), http.StatusInternalServerError)
-		return
-	}
+func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
+    return t.templates.ExecuteTemplate(w, name, data)
+}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write([]byte(data))
+func stockDataHandler(c echo.Context) error {
+    ticker := c.QueryParam("ticker")
+    if ticker == "" {
+        return c.JSON(http.StatusBadRequest, map[string]string{"error": "Ticker is required"})
+    }
+
+    data, err := stockdata.GetStockDataJSON(ticker)
+    if err != nil {
+        return c.JSON(http.StatusInternalServerError, map[string]string{"error": fmt.Sprintf("Error retrieving stock data: %v", err)})
+    }
+
+    return c.JSONBlob(http.StatusOK, []byte(data))
 }
 
 func main() {
-	http.HandleFunc("/scrape", stockDataHandler)
-	log.Println("Starting server on port 8080...")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+    e := echo.New()
+
+    e.Use(middleware.Logger())
+    e.Use(middleware.Recover())
+    e.Static("/", "public")
+    e.GET("/login", func(c echo.Context) error {
+        return c.Render(http.StatusOK, "login.html", nil)
+    })
+
+    // 設定をロード
+    conf, sessionSecret, err := config.LoadConfig("./internal/config/config.json")
+    if err != nil {
+        log.Fatalf("Failed to load configuration: %v", err)
+    }
+
+    // セッションストアの生成とミドルウェアの設定
+    store := sessions.NewCookieStore([]byte(sessionSecret))
+    e.Use(session.Middleware(store))
+
+    // テンプレートエンジンの設定
+    t := &Template{
+        templates: template.Must(template.ParseGlob("views/*.html")),
+    }
+    e.Renderer = t
+
+    // ルーティングを設定
+    e.GET("/api/auth/google", func(c echo.Context) error {
+        return handlers.HandleGoogleAuth(c, conf)
+    })
+    e.GET("/api/auth/google/callback", func(c echo.Context) error {
+        return handlers.HandleGoogleCallback(c, conf, store)
+    })
+    e.GET("/api/dashboard", handlers.DashboardHandler)
+    e.GET("/scrape", stockDataHandler) // Stock data handler を追加
+
+    // サーバーを開始
+    e.Logger.Fatal(e.Start(":8080"))
 }
 
