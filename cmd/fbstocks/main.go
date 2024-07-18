@@ -28,13 +28,13 @@ func main() {
 
     e.Use(middleware.Logger())
     e.Use(middleware.Recover())
-    e.Static("/", "../../public")
+    e.Static("/", "public")
     e.GET("/login", func(c echo.Context) error {
-      return c.Render(http.StatusOK, "login.html", nil)
+        return c.Render(http.StatusOK, "login.html", nil)
     })
 
     // 設定をロード
-    conf, sessionSecret, err := config.LoadConfig("../../config.json")
+    conf, sessionSecret, err := config.LoadConfig("config.json")
     if err != nil {
         log.Fatalf("Failed to load configuration: %v", err)
     }
@@ -45,7 +45,7 @@ func main() {
 
     // テンプレートエンジンの設定
     t := &Template{
-        templates: template.Must(template.ParseGlob("../../views/*.html")),
+        templates: template.Must(template.ParseGlob("views/*.html")),
     }
     e.Renderer = t
 

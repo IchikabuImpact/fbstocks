@@ -3,23 +3,33 @@ package main
 
 import (
     "fmt"
-    "os"
+    "log"
+    "net/http"
     "fbstocks/internal/stockdata"
+    "github.com/labstack/echo/v4"
+    "github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
-    if len(os.Args) < 2 {
-        fmt.Println("Usage: stockdata <ticker>")
-        return
-    }
-    ticker := os.Args[1]
+    e := echo.New()
 
-    data, err := stockdata.GetStockDataJSON(ticker)
-    if err != nil {
-        fmt.Printf("Error getting stock data: %v\n", err)
-        return
-    }
+    e.Use(middleware.Logger())
+    e.Use(middleware.Recover())
 
-    fmt.Println(data)
+    e.GET("/scrape", func(c echo.Context) error {
+        ticker := c.QueryParam("ticker")
+        if ticker == "" {
+            return c.JSON(http.StatusBadRequest, map[string]string{"error": "Ticker is required"})
+        }
+
+        data, err := stockdata.GetStockDataJSON(ticker)
+        if err != nil {
+            return c.JSON(http.StatusInternalServerError, map[string]string{"error": fmt.Sprintf("Error retrieving stock data: %v", err)})
+        }
+
+        return c.JSONBlob(http.StatusOK, []byte(data))
+    })
+
+    log.Fatal(e.Start(":8080"))
 }
 
