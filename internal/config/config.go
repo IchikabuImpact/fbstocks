@@ -1,19 +1,21 @@
 package config
 
 import (
-	"encoding/json"
-	"os"
+    "encoding/json"
+    "fmt"
+    "os"
 
-	"golang.org/x/oauth2"
-	"golang.org/x/oauth2/google"
+    "golang.org/x/oauth2"
+    "golang.org/x/oauth2/google"
+    _ "github.com/go-sql-driver/mysql" // MySQL driver
 )
 
 type Config struct {
-	ClientID      string   `json:"ClientID"`
-	ClientSecret  string   `json:"ClientSecret"`
-	RedirectURL   string   `json:"RedirectURL"`
-	Scopes        []string `json:"Scopes"`
-	SessionSecret string   `json:"SessionSecret"`
+    ClientID      string   `json:"ClientID"`
+    ClientSecret  string   `json:"ClientSecret"`
+    RedirectURL   string   `json:"RedirectURL"`
+    Scopes        []string `json:"Scopes"`
+    SessionSecret string   `json:"SessionSecret"`
 }
 
 type DBConfig struct {
@@ -25,22 +27,22 @@ type DBConfig struct {
 }
 
 func LoadConfig(path string) (*oauth2.Config, string, error) {
-	file, err := os.ReadFile(path)
-	if err != nil {
-		return nil, "", err
-	}
-	var cfg Config
-	if err := json.Unmarshal(file, &cfg); err != nil {
-		return nil, "", err
-	}
+    file, err := os.ReadFile(path)
+    if err != nil {
+        return nil, "", err
+    }
+    var cfg Config
+    if err := json.Unmarshal(file, &cfg); err != nil {
+        return nil, "", err
+    }
 
-	return &oauth2.Config{
-		ClientID:     cfg.ClientID,
-		ClientSecret: cfg.ClientSecret,
-		RedirectURL:  cfg.RedirectURL,
-		Scopes:       cfg.Scopes,
-		Endpoint:     google.Endpoint,
-	}, cfg.SessionSecret, nil
+    return &oauth2.Config{
+        ClientID:     cfg.ClientID,
+        ClientSecret: cfg.ClientSecret,
+        RedirectURL:  cfg.RedirectURL,
+        Scopes:       cfg.Scopes,
+        Endpoint:     google.Endpoint,
+    }, cfg.SessionSecret, nil
 }
 
 func LoadDBConfig(path string) (*DBConfig, error) {
@@ -57,7 +59,7 @@ func LoadDBConfig(path string) (*DBConfig, error) {
 }
 
 func GetDBConnectionString(cfg *DBConfig) string {
-    return fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-        cfg.DBHost, cfg.DBPort, cfg.DBUser, cfg.DBPassword, cfg.DBName)
+    return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+        cfg.DBUser, cfg.DBPassword, cfg.DBHost, cfg.DBPort, cfg.DBName)
 }
 

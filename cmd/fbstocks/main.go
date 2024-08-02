@@ -1,7 +1,7 @@
-// cmd/fbstocks/main.go
 package main
 
 import (
+    "database/sql"
     "html/template"
     "io"
     "log"
@@ -11,6 +11,7 @@ import (
     "github.com/labstack/echo/v4"
     "github.com/labstack/echo/v4/middleware"
     "github.com/labstack/echo-contrib/session"
+    _ "github.com/go-sql-driver/mysql" // MySQL driver
     "fbstocks/internal/config"
     "fbstocks/internal/handlers"
 )
@@ -38,6 +39,20 @@ func main() {
     if err != nil {
         log.Fatalf("Failed to load configuration: %v", err)
     }
+
+    // データベース設定をロード
+    dbConf, err := config.LoadDBConfig("internal/config/dbconfig.json")
+    if err != nil {
+        log.Fatalf("Failed to load database configuration: %v", err)
+    }
+
+    // データベースに接続
+    dbConnStr := config.GetDBConnectionString(dbConf)
+    db, err := sql.Open("mysql", dbConnStr)
+    if err != nil {
+        log.Fatalf("Failed to connect to database: %v", err)
+    }
+    defer db.Close()
 
     // セッションストアの生成とミドルウェアの設定
     store := sessions.NewCookieStore([]byte(sessionSecret))
