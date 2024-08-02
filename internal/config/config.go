@@ -16,6 +16,14 @@ type Config struct {
 	SessionSecret string   `json:"SessionSecret"`
 }
 
+type DBConfig struct {
+    DBHost     string `json:"DBHost"`
+    DBPort     int    `json:"DBPort"`
+    DBUser     string `json:"DBUser"`
+    DBPassword string `json:"DBPassword"`
+    DBName     string `json:"DBName"`
+}
+
 func LoadConfig(path string) (*oauth2.Config, string, error) {
 	file, err := os.ReadFile(path)
 	if err != nil {
@@ -33,5 +41,23 @@ func LoadConfig(path string) (*oauth2.Config, string, error) {
 		Scopes:       cfg.Scopes,
 		Endpoint:     google.Endpoint,
 	}, cfg.SessionSecret, nil
+}
+
+func LoadDBConfig(path string) (*DBConfig, error) {
+    file, err := os.ReadFile(path)
+    if err != nil {
+        return nil, err
+    }
+    var dbCfg DBConfig
+    if err := json.Unmarshal(file, &dbCfg); err != nil {
+        return nil, err
+    }
+
+    return &dbCfg, nil
+}
+
+func GetDBConnectionString(cfg *DBConfig) string {
+    return fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+        cfg.DBHost, cfg.DBPort, cfg.DBUser, cfg.DBPassword, cfg.DBName)
 }
 

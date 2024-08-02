@@ -34,7 +34,7 @@ func main() {
     })
 
     // 設定をロード
-    conf, sessionSecret, err := config.LoadConfig("config.json")
+    conf, sessionSecret, err := config.LoadConfig("internal/config/config.json")
     if err != nil {
         log.Fatalf("Failed to load configuration: %v", err)
     }

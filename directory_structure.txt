@@ -1,4 +1,4 @@
-ファイル構成 (/var/www/fbstocks):
+Directory structure (/var/www/fbstocks):
 | | |____fbstocks
 | | | |____node_modules
 | | | | |____get-stream
@@ -921,9 +921,6 @@
 | | | | | |____sponsors.md
 | | | | | |____deps.js
 | | | | | |____index.d.ts
-| | | | | |____.github
-| | | | | | |____workflows
-| | | | | | | |____pr.yaml
 | | | | | |____.eslintrc.js
 | | | | | |____README.markdown
 | | | | | |____graph.svg
@@ -1104,9 +1101,6 @@
 | | | | | | |____example.js
 | | | | | | |____index.js
 | | | | | | |____CODE_OF_CONDUCT.md
-| | | | | | |____.github
-| | | | | | | |____workflows
-| | | | | | | | |____ci.yml
 | | | | | | |____chrome-finder
 | | | | | | | |____util.js
 | | | | | | | |____index.js
@@ -1172,10 +1166,6 @@
 | | | | | | |____babel.js
 | | | | | | |____es7.d.ts
 | | | | | | |____core.js
-| | | | | |____.github
-| | | | | | |____workflows
-| | | | | | | |____main.yml
-| | | | | | |____dependabot.yml
 | | | | | |____README.md
 | | | | | |____package.json
 | | | | | |____LICENSE
@@ -1202,7 +1192,6 @@
 | | | | | |____dist
 | | | | | | |____angular-sprintf.min.js
 | | | | | | |____sprintf.min.js
-| | | | | | |____.gitattributes
 | | | | | | |____angular-sprintf.min.js.map
 | | | | | | |____sprintf.min.js.map
 | | | | | |____src
@@ -1458,8 +1447,6 @@
 | | | | |____balanced-match
 | | | | | |____index.js
 | | | | | |____LICENSE.md
-| | | | | |____.github
-| | | | | | |____FUNDING.yml
 | | | | | |____README.md
 | | | | | |____package.json
 | | | | |____ws
@@ -1544,15 +1531,9 @@
 | | | |____.air_scrape.toml
 | | | |____tmp_web
 | | | | |____fbstocks
-| | | |____directory_structure.txt
 | | | |____struct.sh
-| | | |____sudo
-| | | |____chromedriver-linux64
-| | | | |____chromedriver
 | | | |____package-lock.json
 | | | |____internal
-| | | | |____stockdata
-| | | | | |____stock_data.go
 | | | | |____handlers
 | | | | | |____auth.go
 | | | | | |____dashboard.go
@@ -1567,169 +1548,13 @@
 | | | | |____stdout.log
 | | | | |____memo.txt
 | | | | |____hello.go
-| | | |____.git
-| | | | |____ORIG_HEAD
-| | | | |____packed-refs
-| | | | |____info
-| | | | | |____exclude
-| | | | | |____refs
-| | | | |____objects
-| | | | | |____8b
-| | | | | | |____5417d106a93bce63afbd1fd348d6305fd5bae2
-| | | | | |____1c
-| | | | | | |____68cd4fbedc2cfe2a60e8a14589d9ded24c1268
-| | | | | | |____fd48df649dbc3387e55903b5943db2dd1d86ff
-| | | | | |____32
-| | | | | | |____000cda1faa194c4677a57cdaedd6533e7b3ca0
-| | | | | |____43
-| | | | | | |____cc898d7d12b59438f9f3b64bdd44b688cc32ee
-| | | | | |____48
-| | | | | | |____61469a8de92d25e81a879ba07a9a2337692e1d
-| | | | | |____b7
-| | | | | | |____43dc9770c5af6c3db872f4064dc190558d7e16
-| | | | | |____98
-| | | | | | |____fa1b3afda3d88f110d6e964e4ce5e75df8ac8e
-| | | | | |____f4
-| | | | | | |____67581e52e6fa60e32d814ea21a54c708cb9616
-| | | | | |____dd
-| | | | | | |____d0c1366add1bafbfed243ec83bc10ed5fc63f0
-| | | | | |____info
-| | | | | | |____commit-graph
-| | | | | | |____packs
-| | | | | |____e0
-| | | | | | |____f7393853a3d57cc258372ffb7a310a9da6ccf3
-| | | | | |____8a
-| | | | | | |____935317a964803f6586ef97be46042558e164a7
-| | | | | |____49
-| | | | | | |____8aa5a3d70568fd3f8b9235ccb1065b8b3e7152
-| | | | | | |____34a49319a75af70d7b7fb067953bcbfebe1875
-| | | | | |____35
-| | | | | | |____29aa3b9ddd60bebe70141de8eb5f8989a51edb
-| | | | | |____b2
-| | | | | | |____6872bbbcdc6b9c8f862873dcda54bcd3b00251
-| | | | | |____85
-| | | | | | |____0e348f2841f94b98aa7b7156bb9d5c9e471821
-| | | | | |____pack
-| | | | | | |____pack-4adaa02c484f48514b9bbadbd7c2d7f420ba69c0.pack
-| | | | | | |____pack-4adaa02c484f48514b9bbadbd7c2d7f420ba69c0.idx
-| | | | | | |____pack-4adaa02c484f48514b9bbadbd7c2d7f420ba69c0.rev
-| | | | | |____4b
-| | | | | | |____a29c340ca7624e6a3eb3b84e7066eff689eec6
-| | | | | |____28
-| | | | | | |____87a2e1c9a2fdbc24399e0d1ba50590480432db
-| | | | | |____fe
-| | | | | | |____9acd635873d652f4b22f22116c41128cbfc1b6
-| | | | | |____9b
-| | | | | | |____67075a4b974488903f4f69a670b5a813663184
-| | | | | |____37
-| | | | | | |____49cb366ced5ecf5fb3a6dfab03afa226855872
-| | | | | |____a4
-| | | | | | |____1024605897857280f66e8370e3c69a042b1a90
-| | | | | |____57
-| | | | | | |____e5c7bc409f8c0bbdc5095b9ef9cd6f091d2314
-| | | | | |____0e
-| | | | | | |____c844cdee182a64d6d9d52a4a8b8c2420d84456
-| | | | | |____3f
-| | | | | | |____ca45d9679498f206280959f34b2e5da20be392
-| | | | | |____5d
-| | | | | | |____18fd3514335bb726055ac4e4f2a1fb76148d50
-| | | | | |____2e
-| | | | | | |____4583ea2edaa9bf88637902dad92af2ac6cabea
-| | | | | |____7d
-| | | | | | |____23a03a341fd5a7c1822932c7d0692a4c9e682a
-| | | | | |____86
-| | | | | | |____a84d98015ae275902b126b15bae832213ef685
-| | | | | |____0f
-| | | | | | |____1d3ba78e9fa618ea28cfe2937c0a32c190bb04
-| | | | | |____88
-| | | | | | |____4cb2736caf8d1c05583d9b43a586f933727a13
-| | | | | |____f3
-| | | | | | |____ef0d5768ca2841afad142ed8cfab2267ad4bbe
-| | | | | |____f6
-| | | | | | |____3251c77c193515c893bce81916437f927dcffa
-| | | | | |____7f
-| | | | | | |____f8b2b5f6f8f3345b3866950e7858f457cf31b7
-| | | | | | |____a1760eeeb212f15e2952660fc27427f445d718
-| | | | | |____fd
-| | | | | | |____e6f4f9c76337951ce8f4416158877082e6a359
-| | | | | |____d6
-| | | | | | |____2175460cc97709c4fe11abd1f39ed25c3b444f
-| | | | | | |____0717e21f4937689b527565cf599cb7a0664110
-| | | | | |____fa
-| | | | | | |____3844fbc6d2fac21f85b36a6788660bf70899ff
-| | | | | |____df
-| | | | | | |____ac957a30bd2d87df4bdb32eaa5f90cb2d75f8c
-| | | | | |____82
-| | | | | | |____e4503fca7dbd260739ed1f0a8e03145fdc2b1a
-| | | | | |____09
-| | | | | | |____30fba9c74539337273d99c62cef586fd6372d8
-| | | | | |____cc
-| | | | | | |____f24b0189f83580276e5f073df61c7d279dc702
-| | | | | | |____bd04c76c0dcf1ce4cfdd1812df9b10a628f527
-| | | | | |____bc
-| | | | | | |____2e768e1767677d19e783f5d956427e7f1b1751
-| | | | |____description
-| | | | |____filter-repo
-| | | | | |____ref-map
-| | | | | |____suboptimal-issues
-| | | | | |____commit-map
-| | | | | |____already_ran
-| | | | |____index
-| | | | |____COMMIT_EDITMSG
-| | | | |____branches
-| | | | |____hooks
-| | | | | |____pre-commit.sample
-| | | | | |____post-commit
-| | | | | |____post-checkout
-| | | | | |____pre-receive.sample
-| | | | | |____pre-merge-commit.sample
-| | | | | |____pre-rebase.sample
-| | | | | |____pre-push
-| | | | | |____fsmonitor-watchman.sample
-| | | | | |____pre-push.sample
-| | | | | |____update.sample
-| | | | | |____push-to-checkout.sample
-| | | | | |____commit-msg.sample
-| | | | | |____post-update.sample
-| | | | | |____pre-applypatch.sample
-| | | | | |____applypatch-msg.sample
-| | | | | |____prepare-commit-msg.sample
-| | | | | |____post-merge
-| | | | |____config
-| | | | |____HEAD
-| | | | |____lfs
-| | | | | |____cache
-| | | | | | |____locks
-| | | | | | | |____refs
-| | | | | | | | |____heads
-| | | | | | | | | |____main
-| | | | | | | | | | |____verifiable
-| | | | | |____tmp
-| | | | |____logs
-| | | | | |____HEAD
-| | | | | |____refs
-| | | | | | |____heads
-| | | | | | | |____main
-| | | | | | |____remotes
-| | | | | | | |____origin
-| | | | | | | | |____main
-| | | | |____refs
-| | | | | |____replace
-| | | | | |____heads
-| | | | | | |____main
-| | | | | |____tags
-| | | | | |____remotes
-| | | | | | |____origin
-| | | | | | | |____main
 | | | |____scripts
 | | | |____server.go
 | | | |____stdout.log
 | | | |____tmp
 | | | | |____build-errors.log
 | | | | |____main
-| | | |____.gitignore
 | | | |____.air_web.toml
-| | | |____.gitattributes
 | | | |____README.md
 | | | |____bin
 | | | |____package.json
@@ -1970,7 +1795,6 @@
 | | | | | | | | |____syscall_aix_ppc.go
 | | | | | | | | |____zsyscall_linux_ppc.go
 | | | | | | | | |____cap_freebsd.go
-| | | | | | | | |____.gitignore
 | | | | | | | | |____zsysnum_freebsd_arm.go
 | | | | | | | | |____syscall_linux_mipsx.go
 | | | | | | | | |____zerrors_freebsd_arm.go
@@ -2085,7 +1909,6 @@
 | | | | | | | | |____flow.go
 | | | | | | | | |____server.go
 | | | | | | | | |____writesched_priority.go
-| | | | | | | | |____.gitignore
 | | | | | | | | |____client_conn_pool.go
 | | | | | | | | |____errors.go
 | | | | | | | | |____hpack
@@ -2250,7 +2073,6 @@
 | | | | | | | |____context.go
 | | | | | | | |____Makefile
 | | | | | | | |____.golangci.yml
-| | | | | | | |____.gitignore
 | | | | | | | |____README.md
 | | | | | | | |____LICENSE
 | | | | | | | |____doc.go
@@ -2258,7 +2080,6 @@
 | | | | | | | |____.editorconfig
 | | | | | | | |____securecookie.go
 | | | | | | | |____Makefile
-| | | | | | | |____.gitignore
 | | | | | | | |____README.md
 | | | | | | | |____LICENSE
 | | | | | | | |____doc.go
@@ -2270,7 +2091,6 @@
 | | | | | | | |____options_go111.go
 | | | | | | | |____Makefile
 | | | | | | | |____cookie.go
-| | | | | | | |____.gitignore
 | | | | | | | |____cookie_go111.go
 | | | | | | | |____README.md
 | | | | | | | |____sessions.go
@@ -2299,7 +2119,6 @@
 | | | | | | | |____internal
 | | | | | | | | |____zip
 | | | | | | | | | |____zip.go
-| | | | | | | |____.gitignore
 | | | | | | | |____README.md
 | | | | | | | |____service.go
 | | | | | | | |____LICENSE
@@ -2355,10 +2174,8 @@
 | | | | | | | | |____context.go
 | | | | | | | | |____Makefile
 | | | | | | | | |____responsecontroller_1.19.go
-| | | | | | | | |____.gitignore
 | | | | | | | | |____echo_fs.go
 | | | | | | | | |____codecov.yml
-| | | | | | | | |____.gitattributes
 | | | | | | | | |____README.md
 | | | | | | | | |____log.go
 | | | | | | | | |____LICENSE
@@ -2394,7 +2211,6 @@
 | | | | | | | |____ecdsa.go
 | | | | | | | |____rsa.go
 | | | | | | | |____hmac.go
-| | | | | | | |____.gitignore
 | | | | | | | |____ed25519.go
 | | | | | | | |____errors.go
 | | | | | | | |____README.md
@@ -2422,8 +2238,6 @@
 | | | | | | | |____doc.go
 | | | |____web
 | | | |____cmd
-| | | | |____stockdata
-| | | | | |____main.go
 | | | | |____fbstocks
 | | | | | |____main.go
 | | | | | |____fbstocks
@@ -2435,6 +2249,7 @@
 | | | | |____9363.json
 | | | | |____privacy-policy.html
 | | | | |____7298.json
+| | | | |____js
 | | | | |____9930.json
 | | | | |____7565.json
 | | | | |____scripts.js
@@ -2446,7 +2261,6 @@
 | | | | | |____styles.css
 | | | | |____index.html
 | | | | |____4992.json
-| | | | |____.gitignore
 | | | | |____term-of-use.html
 | | | | |____8887.json
 | | | | |____5395.json
