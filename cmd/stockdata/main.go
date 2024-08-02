@@ -30,6 +30,6 @@ func main() {
         return c.JSONBlob(http.StatusOK, []byte(data))
     })
 
-    log.Fatal(e.Start(":8080"))
+    log.Fatal(e.Start(":8082"))
 }
 

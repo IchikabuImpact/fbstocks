@@ -1,13 +1,40 @@
 #!/bin/bash
-# スクリプトの目的: /var/www/fbstocks ディレクトリ内のファイル構成を表示し、ファイルに保存する（tree コマンドがない場合の代替案）。
 
-# 出力ファイル名を定義
+# Script purpose: List the file structure of the current directory and save it to a file (alternative to the 'tree' command).
+# Ignores .git directories and cache files.
+
+# Define output file name
 output_file="directory_structure.txt"
 
-# /var/www/fbstocks ディレクトリ内のファイルとフォルダの構造をリストアップし、ファイルに保存
-echo "ファイル構成 (/var/www/fbstocks):" > "$output_file"
-find /var/www/fbstocks -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g' >> "$output_file"
+# Get current directory
+current_dir=$(pwd)
 
-# 結果を標準出力にも表示
-echo "ディレクトリ構成が $output_file に保存されました。内容は以下の通りです:"
+# Define exclusion patterns
+exclude_patterns=(
+    "/.git"          # .git directory
+    "*~"             # Backup files (e.g., *.swp, *~)
+    "#*#"            # Temporary files (e.g., .#*~)
+    "._*"            # Hidden files (e.g., .*~)
+    "$output_file"   # The output file itself
+    "*.pyc"          # Python cache files
+)
+
+# List file and folder structure in the current directory, save to file
+echo "Directory structure ($current_dir):" > "$output_file"
+
+# Find files and directories, excluding patterns, and format output
+find "$current_dir" -print | while read -r file; do
+    for pattern in "${exclude_patterns[@]}"; do
+        if [[ "$file" == *"$pattern"* ]]; then
+            continue 2  # Skip to the next file in the outer loop
+        fi
+    done
+
+    # Format file path with pipe characters
+    formatted_path=$(echo "$file" | sed -e 's;[^/]*/;|____;g;s;____|; |;g')
+    echo "$formatted_path" >> "$output_file" 
+done
+
+# Display results to standard output
+echo "Directory structure saved to $output_file. Contents:"
 cat "$output_file"

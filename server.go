@@ -75,6 +75,6 @@ func main() {
     e.GET("/scrape", stockDataHandler) // Stock data handler を追加
 
     // サーバーを開始
-    e.Logger.Fatal(e.Start(":8080"))
+    e.Logger.Fatal(e.Start(":8082"))
 }
 
