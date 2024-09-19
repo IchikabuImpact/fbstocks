@@ -1,10 +1,11 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="./css/styles.css">
-        <title>FB Stocks</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <title>FB Stocks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
 <body>
     <header>
         <div class="logo-container">
@@ -12,26 +13,35 @@
                 <img src="/images/fbstocks120-120.png" alt="FB Stocks Logo" class="logo">
             </a>
         </div>
-	<div class="google-signin-container">
-          <a href="/api/auth/google" id="google-signin-btn">
-            <img src="/images/sign-in-with-google.png" alt="Sign in with Google">
-         </a>
+        <div class="user-info-container" id="user-info-container">
+            <!-- ユーザー情報やログインボタンを表示 -->
+        </div>
+        <!-- Googleサインインボタンを含むコンテナ -->
+        <div class="google-signin-container">
+            <a href="/api/auth/google" id="google-signin-btn">
+                <img src="/images/sign-in-with-google.png" alt="Sign in with Google">
+            </a>
         </div>
     </header>
-<main>
-    <div id="stockData"></div>
-</main>
+    <main>
+        <div id="stockData"></div>
+    </main>
 <footer>
     <div class="footer-wrapper">
         <div class="footer-column">
-       <div class="footer-column"><h3>Term Of Use</h3><ul><li class="nav-item"><a class="nav-link" data-ajax="false" href="/term-of-use.html">Term Of Use</a></li></ul></div>
-       <div class="footer-column"><h3>Privacy Policy</h3><ul><li class="nav-item"><a class="nav-link" data-ajax="false" href="/privacy.html">Privacy Policy</a></li></ul></div>
-       <div class="footer-column"><h3>Contact to Webmaster</h3><ul><li class="nav-item"><a class="nav-link" data-ajax="false"  href="https://forms.gle/ZyjQf8gB9oShmvDz7">Contact to Webmaster</a></li></ul>
-       </div>
-       <div class="footer-credit"><p>&copy; 2023 FBstocks. All rights reserved.</p></div>
-   </div>
-   </footer>
-
-<script src="scripts.js"></script>
+            <a href="/term-of-use.html">Term Of Use</a>
+        </div>
+        <div class="footer-column">
+            <a href="/privacy.html">Privacy Policy</a>
+        </div>
+        <div class="footer-column">
+            <a href="https://forms.gle/ZyjQf8gB9oShmvDz7">Contact to Webmaster</a>
+        </div>
+        <div class="footer-credit">
+            <p>c 2023 FB Stocks. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+    <script src="/js/scripts.js"></script>
 </body>
 </html>

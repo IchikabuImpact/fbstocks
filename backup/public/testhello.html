@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Hello API</title>
+    <script>
+        // HTMLのボタンがクリックされたときにこの関数を実行
+        function callHelloAPI() {
+            // JSON-RPC リクエストペイロードを作成
+            const payload = {
+                method: "HelloService.SayHello",
+                params: ["World"],
+                id: 1,
+            };
+
+            // POST リクエストを送信
+            fetch('https://fbstocks.pinkgold.space/api', { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Test Hello API</h1>
+    <button onclick="callHelloAPI()">Call Hello API</button>
+</body>
+</html>

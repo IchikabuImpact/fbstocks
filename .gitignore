@@ -2,6 +2,8 @@
 config.js
 stub.js
 config.json
+node_modules/
+.env
 
 # Logs
 logs
