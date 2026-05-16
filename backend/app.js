@@ -6,32 +6,26 @@ require('dotenv').config();
 
 const app = express();
 
-// セッションの設定
+// Apache がリバースプロキシのため X-Forwarded-* を信頼する
+app.set('trust proxy', 1);
+
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    // Apache で TLS 終端しているため Node.js 側は HTTP。
+    // secure:true にすると Apache→Node 間が HTTP のため Cookie が発行されない。
+    secure: false,
+    sameSite: 'lax',
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  },
 }));
 
-// Passportの初期化
 app.use(passport.initialize());
 app.use(passport.session());
-
-// JSONのパース
 app.use(express.json());
-
-// ルーティング
 app.use('/api', apiRouter);
-
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        httpOnly: true,
-        secure: true, // HTTPSを使用している場合はtrue
-        sameSite: 'lax',
-    },
-}));
 
 module.exports = app;

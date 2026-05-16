@@ -1,47 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>FB Stocks</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0f1e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>FBStocks</title>
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    <header>
-        <div class="logo-container">
-            <a href="/">
-                <img src="/images/fbstocks120-120.png" alt="FB Stocks Logo" class="logo">
-            </a>
-        </div>
-        <div class="user-info-container" id="user-info-container">
-            <!-- ユーザー情報やログインボタンを表示 -->
-        </div>
-        <!-- Googleサインインボタンを含むコンテナ -->
-        <div class="google-signin-container">
-            <a href="/api/auth/google" id="google-signin-btn">
-                <img src="/images/sign-in-with-google.png" alt="Sign in with Google">
-            </a>
-        </div>
-    </header>
-    <main>
-        <div id="stockData"></div>
-    </main>
-<footer>
-    <div class="footer-wrapper">
-        <div class="footer-column">
-            <a href="/term-of-use.html">Term Of Use</a>
-        </div>
-        <div class="footer-column">
-            <a href="/privacy.html">Privacy Policy</a>
-        </div>
-        <div class="footer-column">
-            <a href="https://forms.gle/ZyjQf8gB9oShmvDz7">Contact to Webmaster</a>
-        </div>
-        <div class="footer-credit">
-            <p>c 2023 FB Stocks. All rights reserved.</p>
-        </div>
+
+  <!-- ヘッダー -->
+  <header class="header">
+    <a href="/" class="logo-link">
+      <img src="/images/fbstocks120-120.png" alt="FBStocks" class="logo" width="30" height="30">
+      <span class="logo-text">FBStocks</span>
+    </a>
+    <span class="header-count" id="stock-count"></span>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main class="main" id="main">
+
+    <!-- 初回ログイン時ウェルカムバナー -->
+    <div id="welcome-banner" class="welcome-banner" style="display:none;">
+      <div class="welcome-inner">
+        <span class="welcome-icon">🎉</span>
+        <span class="welcome-text">サンプル銘柄を登録しました。「管理」から自由に編集できます。</span>
+      </div>
+      <button class="welcome-close" id="welcome-close" aria-label="閉じる">×</button>
     </div>
-</footer>
-    <script src="/js/scripts.js"></script>
+
+    <!-- エラーバナー -->
+    <div id="error-banner" class="error-banner" style="display:none;"></div>
+
+    <!-- ヒートマップ -->
+    <div class="heatmap" id="heatmap">
+      <div class="loading-placeholder">
+        <div class="spinner"></div>
+        <p>読み込み中...</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- タイル詳細シート -->
+  <div class="overlay" id="detail-overlay" aria-hidden="true">
+    <div class="sheet" id="detail-sheet" role="dialog" aria-modal="true">
+      <div class="sheet-handle"></div>
+      <div class="sheet-body" id="detail-body"></div>
+    </div>
+  </div>
+
+  <!-- アカウントシート -->
+  <div class="overlay" id="account-overlay" aria-hidden="true">
+    <div class="sheet" id="account-sheet" role="dialog" aria-modal="true">
+      <div class="sheet-handle"></div>
+      <div class="sheet-body" id="account-body"></div>
+    </div>
+  </div>
+
+  <!-- お気に入り管理モーダル -->
+  <div class="overlay" id="modal-overlay" aria-hidden="true">
+    <div class="modal" id="modal" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <h2 class="modal-title">お気に入り管理</h2>
+        <button class="modal-close" id="modal-close" aria-label="閉じる">×</button>
+      </div>
+      <div class="modal-body">
+
+        <section class="modal-section">
+          <p class="modal-section-title">銘柄を追加</p>
+          <div class="modal-search-row">
+            <input
+              type="text" id="modal-ticker-input" class="ticker-input"
+              placeholder="証券コード (例: 8306)"
+              maxlength="4" pattern="\d{4}" inputmode="numeric"
+            >
+            <button class="btn-search" id="modal-search-btn">検索</button>
+          </div>
+          <div id="modal-preview" class="modal-preview"></div>
+        </section>
+
+        <section class="modal-section">
+          <p class="modal-section-title">
+            登録済み <span class="modal-count" id="modal-count"></span>
+          </p>
+          <div id="modal-favorites-list" class="modal-favorites-list">
+            <div class="modal-empty">読み込み中...</div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ボトムナビゲーション -->
+  <nav class="bottom-nav" id="bottom-nav" aria-label="メインナビゲーション"></nav>
+
+  <script src="/js/app.js"></script>
 </body>
 </html>

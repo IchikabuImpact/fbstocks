@@ -1,7 +1,0 @@
-{
-  "DBHost": "localhost",
-  "DBPort": 3306,
-  "DBUser": "kodamak",
-  "DBPassword": "331155",
-  "DBName": "fbstocks"
-}
