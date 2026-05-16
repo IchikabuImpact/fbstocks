@@ -1,8 +1,9 @@
--- MariaDB dump 10.19  Distrib 10.5.22-MariaDB, for Linux (x86_64)
+/*M!999999\- enable the sandbox mode */ 
+-- MariaDB dump 10.19  Distrib 10.11.15-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: fbstocks
 -- ------------------------------------------------------
--- Server version	10.5.22-MariaDB
+-- Server version	10.11.15-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -21,7 +22,7 @@
 
 DROP TABLE IF EXISTS `favorite_samples`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `favorite_samples` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `stock_symbol` varchar(10) NOT NULL,
@@ -30,7 +31,7 @@ CREATE TABLE `favorite_samples` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `stock_symbol` (`stock_symbol`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +40,13 @@ CREATE TABLE `favorite_samples` (
 
 LOCK TABLES `favorite_samples` WRITE;
 /*!40000 ALTER TABLE `favorite_samples` DISABLE KEYS */;
+INSERT INTO `favorite_samples` VALUES
+(7,'1928','','2024-12-23 07:57:30','2024-12-23 07:57:30'),
+(8,'8593','','2024-12-23 07:57:30','2024-12-23 07:57:30'),
+(9,'8931','','2024-12-23 07:57:30','2024-12-23 07:57:30'),
+(10,'9765','','2024-12-23 07:57:30','2024-12-23 07:57:30'),
+(11,'7532','','2024-12-23 07:57:30','2024-12-23 07:57:30'),
+(12,'3475','','2024-12-23 07:57:30','2024-12-23 07:57:30');
 /*!40000 ALTER TABLE `favorite_samples` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -48,7 +56,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `favorites`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `favorites` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -60,7 +68,7 @@ CREATE TABLE `favorites` (
   KEY `stock_id` (`stock_id`),
   CONSTRAINT `favorites_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `favorites_ibfk_2` FOREIGN KEY (`stock_id`) REFERENCES `stocks` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -78,7 +86,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `social_accounts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `social_accounts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `provider_name` varchar(50) NOT NULL,
@@ -90,7 +98,7 @@ CREATE TABLE `social_accounts` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `social_accounts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -108,7 +116,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `stocks`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `stocks` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `stock_symbol` varchar(10) NOT NULL,
@@ -117,7 +125,7 @@ CREATE TABLE `stocks` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `stock_symbol` (`stock_symbol`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -135,7 +143,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
@@ -144,7 +152,7 @@ CREATE TABLE `users` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -153,6 +161,8 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES
+(1,'いちかぶインパクト','kenchanbaken@gmail.com','2024-09-19 08:52:05','2024-09-19 08:52:05');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -165,4 +175,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-19 16:26:37
+-- Dump completed on 2026-05-16 20:04:36
