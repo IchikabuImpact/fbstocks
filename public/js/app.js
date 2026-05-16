@@ -181,7 +181,8 @@ function openAccountSheet() {
 
 // ─── Bottom navigation ────────────────────────────────────────────────────────
 function buildBottomNav() {
-  const nav = document.getElementById('bottom-nav');
+  const nav    = document.getElementById('bottom-nav');
+  const header = document.getElementById('header-nav');
 
   if (state.isLoggedIn) {
     nav.innerHTML = `
@@ -191,12 +192,24 @@ function buildBottomNav() {
     `;
     document.getElementById('nav-manage').addEventListener('click', openModal);
     document.getElementById('nav-account').addEventListener('click', openAccountSheet);
+
+    header.innerHTML = `
+      <button class="header-nav-btn" id="hnav-manage">管理</button>
+      <button class="header-nav-btn" id="hnav-account">${state.user ? state.user.name.split(' ')[0] : 'アカウント'}</button>
+    `;
+    document.getElementById('hnav-manage').addEventListener('click', openModal);
+    document.getElementById('hnav-account').addEventListener('click', openAccountSheet);
   } else {
     nav.innerHTML = `
       <button class="nav-item active" id="nav-map">${ICONS.heatmap}<span>マップ</span></button>
       <button class="nav-item" id="nav-login">${ICONS.login}<span>ログイン</span></button>
     `;
     document.getElementById('nav-login').addEventListener('click', openAccountSheet);
+
+    header.innerHTML = `
+      <button class="header-nav-btn primary" id="hnav-login">${GOOGLE_SVG}Googleでログイン</button>
+    `;
+    document.getElementById('hnav-login').addEventListener('click', openAccountSheet);
   }
 }
 

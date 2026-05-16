@@ -677,15 +677,48 @@ body {
 .nav-item:active { opacity: .7; }
 .nav-item svg { display: block; }
 
+/* ── Header nav (デスクトップのみ表示) ──────────────────────────────────── */
+.header-nav {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .header-nav {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+  }
+}
+
+.header-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .45rem .85rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .15s, border-color .15s;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.header-nav-btn:hover { background: var(--surface2); border-color: rgba(255,255,255,0.18); }
+.header-nav-btn.primary {
+  background: var(--accent-bg);
+  border-color: rgba(74,158,255,0.3);
+  color: var(--accent);
+}
+.header-nav-btn.primary:hover { background: rgba(74,158,255,0.2); }
+
 /* ── Desktop overrides ───────────────────────────────────────────────────── */
 @media (min-width: 768px) {
   .bottom-nav { display: none; }
   .main { padding-bottom: 2rem; }
-
-  /* デスクトップ用ヘッダーに管理・ログインを表示 */
   .header { height: 60px; padding-top: 0; }
   .main { padding-top: 60px; }
-  .header::after {
-    content: '';
-  }
 }
