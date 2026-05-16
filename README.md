@@ -1,54 +1,96 @@
-FBStocks
+# FBStocks
 
-FBStocks is a stock management tool that allows users to manage their favorite stocks and visualize price movements through an intuitive heatmap. The project is developed using Node.js and MariaDB, with plans for future expansion to include Android applications.
+日本株のお気に入り銘柄をFINVIZ風ヒートマップで表示するモバイルファーストのPWA。
 
-Features
+![スクリーンショット](public/images/fbstocks120-120.png)
 
-Google Login: Authenticate users via Google OAuth 2.0.
+## 機能
 
-Favorite Stock Management: Add, delete, and list favorite stocks (Japanese stocks with 4-digit tickers).
+- **Google OAuth 2.0 ログイン** — アカウント登録不要
+- **ヒートマップ表示** — 前日比変動率をカラースケールで可視化（+5%〜−5%の6段階）
+- **お気に入り管理** — 4桁の証券コードで銘柄を追加・削除
+- **初回ログイン時サンプル表示** — `favorite_samples` の銘柄を自動コピーしてすぐ使える
+- **モバイル対応** — ボトムナビ、ボトムシート、iPhoneノッチ対応
+- **デスクトップ対応** — 768px以上でヘッダーにナビゲーションを表示
 
-Heatmap Visualization: Display stock price movements on a heatmap.
+## アーキテクチャ
 
-Sample Heatmap: Provide sample data for non-logged-in users.
+```
+ブラウザ (HTTPS)
+  ↓
+Apache (TLS終端 / Let's Encrypt)
+  ├── /        → /var/www/fbstocks/public/  (静的ファイル)
+  └── /api/*   → http://localhost:1234/api/ (リバースプロキシ)
+                    ↓
+              Express (Node.js 22, port 1234)
+                    ↓
+              MariaDB (fbstocks データベース)
+```
 
-RESTful API: JSON-based data input/output.
+## 技術スタック
 
-Prerequisites
+| 項目 | 内容 |
+|------|------|
+| ランタイム | Node.js 22 |
+| フレームワーク | Express 4 |
+| 認証 | Passport.js (Google OAuth 2.0) |
+| ORM | Sequelize 6 (mysql2) |
+| データベース | MariaDB 10.5 |
+| フロントエンド | Vanilla JS (フレームワークなし) |
+| Webサーバー | Apache 2 (TLS終端・リバースプロキシ) |
+| OS | Rocky Linux 9 |
+| サービス管理 | systemd |
 
-Server Environment
+## ファイル構成
 
-OS: Rocky Linux 9.3
+```
+fbstocks/
+├── CLAUDE.md              # Claude Code向けプロジェクトガイド
+├── README.md
+├── public/                # Apache が直接配信する静的ファイル
+│   ├── index.html
+│   ├── css/styles.css
+│   ├── js/app.js
+│   └── images/
+├── backend/
+│   ├── server.js          # エントリーポイント (port 1234)
+│   ├── app.js             # Express設定 (session, passport, routes)
+│   ├── .env               # 環境変数 (Git管理外)
+│   ├── auth/passport.js   # Google OAuth戦略
+│   ├── middleware/auth.js
+│   ├── models/            # Sequelizeモデル
+│   │   ├── index.js       # まとめてexport・アソシエーション定義
+│   │   ├── User.js
+│   │   ├── Stock.js
+│   │   ├── Favorite.js
+│   │   └── FavoriteSample.js
+│   └── routes/api.js      # 全APIルート
+└── db/
+    ├── schema.sql          # テーブル定義
+    └── seeds.sql           # favorite_samplesの初期データ
+```
 
-Web Server: Apache (ProxyPass and ProxyPassReverse for API proxying)
+## セットアップ
 
-Database: MariaDB 10.5.22
+### 1. リポジトリのクローン
 
-Node.js: v16 or higher
+```bash
+git clone https://github.com/IchikabuImpact/fbstocks.git
+cd fbstocks
+```
 
-Docker (optional): For containerized deployment
+### 2. 依存パッケージのインストール
 
-Dependencies
-
-Google OAuth credentials (Client ID and Secret)
-
-HTTPS enabled with Let’s Encrypt
-
-Project Setup
-
-Clone the Repository
-
-git clone https://github.com/your-repo/fbstocks.git
-cd fbstocks/backend
-
-Install Dependencies
-
+```bash
+cd backend
 npm install
+```
 
-Configure Environment Variables
+### 3. 環境変数の設定
 
-Create a .env file in the backend/ directory with the following content:
+`backend/.env` を作成:
 
+```env
 DATABASE_USER=root
 DATABASE_PASSWORD=your_password
 DATABASE_NAME=fbstocks
@@ -57,78 +99,89 @@ GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
 SESSION_SECRET=your_session_secret
 CALLBACK_URL=https://yourdomain.com/api/auth/google/callback
+```
 
-Database Setup
+### 4. データベースの初期化
 
-Schema Initialization
-
-Run the following command to create the database schema:
-
+```bash
 mysql -uroot -p fbstocks < db/schema.sql
-
-Seed Master Data
-
-Run the following command to populate the favorite_samples table with sample data:
-
 mysql -uroot -p fbstocks < db/seeds.sql
+```
 
-Start the Server
+### 5. systemd サービスの登録（本番）
 
-node server.js
+```bash
+sudo cp /etc/systemd/system/fbstocks.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now fbstocks
+```
 
-Docker Deployment (Optional)
+`/etc/systemd/system/fbstocks.service` の例:
 
-To deploy using Docker, use the docker-compose.yml file provided:
+```ini
+[Unit]
+Description=FBStocks Node.js server
+After=network.target mariadb.service
 
-docker-compose up -d
+[Service]
+Type=simple
+User=rocky
+WorkingDirectory=/var/www/fbstocks/backend
+ExecStart=/home/rocky/.nvm/versions/node/v22.22.0/bin/node server.js
+Restart=on-failure
+RestartSec=5
 
-API Endpoints
+[Install]
+WantedBy=multi-user.target
+```
 
-Authentication
+## 株価データAPI
 
-GET /api/auth/google: Start Google login authentication.
+外部APIを `/api/stock/:ticker` でプロキシしています。
 
-Favorite Management
+```
+GET https://jpx-indicator.pinkgold.space/scrape?ticker=8306
+```
 
-POST /api/favorites/add: Add a favorite stock.
+レスポンスキー: `companyName`, `currentPrice`, `previousClose`, `dividendYield`, `per`, `pbr`, `marketCap`
 
-POST /api/favorites/remove: Remove a favorite stock.
+## APIエンドポイント
 
-GET /api/favorites/list: Retrieve the list of favorite stocks.
+| メソッド | パス | 説明 |
+|---------|------|------|
+| GET | `/api/check-auth` | 認証状態の確認 |
+| GET | `/api/auth/google` | Googleログイン開始 |
+| GET | `/api/auth/google/callback` | OAuthコールバック |
+| POST | `/api/logout` | ログアウト |
+| GET | `/api/heatmap` | ヒートマップ用銘柄一覧（初回ログイン時にサンプルをコピー）|
+| GET | `/api/stock/:ticker` | 株価データ取得（外部APIプロキシ）|
+| GET | `/api/favorites` | お気に入り一覧 |
+| POST | `/api/favorites/add` | お気に入り追加 |
+| POST | `/api/favorites/remove` | お気に入り削除 |
 
-Heatmap
+## ローカル開発（WSL）
 
-GET /api/heatmap/data: Get heatmap data for the logged-in user.
+```bash
+# .env の CALLBACK_URL を変更
+CALLBACK_URL=http://localhost:3000/api/auth/google/callback
 
-GET /api/heatmap/sample: Get sample heatmap data.
+# サーバー起動
+cd backend
+npm run dev  # nodemon使用
+```
 
-Utility
+GCP OAuth クライアントに以下を追加してください:
+- 承認済みJavaScript生成元: `http://localhost:3000`
+- 承認済みリダイレクトURI: `http://localhost:3000/api/auth/google/callback`
 
-GET /api/hello: Health check endpoint.
+## サービス管理
 
-Directory Structure
+```bash
+sudo systemctl status fbstocks    # 状態確認
+sudo systemctl restart fbstocks   # 再起動
+sudo journalctl -u fbstocks -f    # ログをリアルタイムで確認
+```
 
-fbstocks/
-├── backend/             # Node.js backend code
-├── db/                 # Database-related files
-│   ├── schema.sql   # Schema definition
-│   └── seeds.sql    # Seed data
-├── public/             # Frontend static files
-├── .env.example        # Example environment file
-├── README.md          # Project documentation
+## ライセンス
 
-Future Enhancements
-
-Implement an Android application for mobile users.
-
-Add features for detailed stock analysis.
-
-Improve database performance with scaling and optimization.
-
-Implement API versioning for seamless updates.
-
-License
-
-MIT License
-
-Feel free to modify and expand this README as the project evolves.
+MIT
