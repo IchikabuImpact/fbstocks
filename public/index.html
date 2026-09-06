@@ -72,6 +72,16 @@
       <div class="modal-body">
 
         <section class="modal-section">
+          <p class="modal-section-title">保有銘柄CSVから一括入れ替え</p>
+          <div class="modal-search-row">
+            <input type="file" id="modal-csv-input" class="csv-input" accept=".csv">
+            <button class="btn-search" id="modal-csv-btn">取り込み</button>
+          </div>
+          <p class="csv-hint">楽天証券の資産状況CSV(assetbalance)を選択すると、現在のお気に入りが保有中の国内株式に全て入れ替わります</p>
+          <div id="modal-csv-result" class="modal-preview"></div>
+        </section>
+
+        <section class="modal-section">
           <p class="modal-section-title">銘柄を追加</p>
           <div class="modal-search-row">
             <input

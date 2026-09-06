@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const passport = require('./auth/passport');
@@ -27,5 +28,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
 app.use('/api', apiRouter);
+// 本番はApacheが静的配信するが、Apacheなしのローカル/LAN実行用にExpressからも配信する
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 module.exports = app;

@@ -559,6 +559,19 @@ body {
 
 .modal-preview { margin-top: .65rem; }
 
+.csv-input {
+  flex: 1;
+  color: var(--text);
+  font-size: .82rem;
+  min-width: 0;
+}
+.csv-hint {
+  margin-top: .5rem;
+  font-size: .74rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
 .preview-card {
   display: flex;
   align-items: center;

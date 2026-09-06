@@ -403,8 +403,53 @@ function openModal() {
   openOverlay('modal-overlay');
 }
 
+function initCsvImport() {
+  const fileInput = document.getElementById('modal-csv-input');
+  const importBtn = document.getElementById('modal-csv-btn');
+  const result    = document.getElementById('modal-csv-result');
+
+  importBtn.addEventListener('click', async () => {
+    const file = fileInput.files[0];
+    if (!file) {
+      result.innerHTML = '<div class="preview-error">CSVファイルを選択してください</div>';
+      return;
+    }
+    if (!confirm('現在のお気に入りをCSVの保有銘柄で全て入れ替えます。よろしいですか？')) {
+      return;
+    }
+
+    importBtn.disabled = true;
+    result.innerHTML = '<div class="modal-empty"><div class="spinner" style="width:20px;height:20px;border-width:2px;margin:.5rem auto;"></div></div>';
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      const res  = await fetch('/api/favorites/import-csv', {
+        method: 'POST',
+        credentials: 'include',
+        body: formData,
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        result.innerHTML = `<div class="preview-error">${data.error || '取り込みに失敗しました'}</div>`;
+        return;
+      }
+
+      result.innerHTML = `<div class="preview-card"><div class="preview-info"><div class="preview-name">${data.total}銘柄に入れ替えました(追加${data.added} / 削除${data.removed})</div></div></div>`;
+      fileInput.value = '';
+      await Promise.all([loadHeatmap(), refreshModalList()]);
+    } catch {
+      result.innerHTML = '<div class="preview-error">取り込みに失敗しました</div>';
+    } finally {
+      importBtn.disabled = false;
+    }
+  });
+}
+
 function initModal() {
   document.getElementById('modal-close').addEventListener('click', () => closeOverlay('modal-overlay'));
+  initCsvImport();
 
   const input     = document.getElementById('modal-ticker-input');
   const searchBtn = document.getElementById('modal-search-btn');

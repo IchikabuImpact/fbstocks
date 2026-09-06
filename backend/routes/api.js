@@ -1,8 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const multer = require('multer');
+const iconv = require('iconv-lite');
 const { ensureAuthenticated } = require('../middleware/auth');
 const { User, Stock, Favorite, FavoriteSample } = require('../models');
+const { parseHoldingsCsv } = require('../lib/rakutenHoldingsCsv');
+const { dedupeByCode, replaceFavoritesForUser } = require('../lib/replaceFavorites');
+
+const csvUpload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 },
+});
 
 const SCRAPE_API = 'https://jpx-indicator.pinkgold.space/scrape';
 
@@ -148,6 +157,26 @@ router.post('/favorites/add', ensureAuthenticated, async (req, res) => {
     res.json({ ok: true, ticker, name: stock.stock_name });
   } catch (err) {
     res.status(500).json({ error: 'お気に入りの追加に失敗しました' });
+  }
+});
+
+router.post('/favorites/import-csv', ensureAuthenticated, csvUpload.single('file'), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'CSVファイルを選択してください' });
+  }
+  try {
+    const text = iconv.decode(req.file.buffer, 'CP932');
+    const holdings = parseHoldingsCsv(text);
+    const symbolMap = dedupeByCode(holdings);
+
+    if (symbolMap.size === 0) {
+      return res.status(400).json({ error: '保有銘柄(国内株式)が見つかりませんでした。楽天証券の資産状況CSVか確認してください' });
+    }
+
+    const { total, added, removed } = await replaceFavoritesForUser(req.user.id, symbolMap);
+    res.json({ ok: true, total, added, removed });
+  } catch (err) {
+    res.status(500).json({ error: 'CSVの取り込みに失敗しました' });
   }
 });
 

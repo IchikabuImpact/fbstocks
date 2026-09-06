@@ -6,8 +6,9 @@ require('dotenv').config();
   try {
     await sequelize.authenticate();
     await sequelize.sync();
-    app.listen(1234, () => {
-      console.log('Server is running on port 1234');
+    const port = process.env.PORT || 1234;
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
     });
   } catch (err) {
     console.error('Unable to connect to the database:', err);
